@@ -1,0 +1,15 @@
+[[link]]
+source = 'vim/vimrc'
+target.windows = [
+  '~/vimfiles/vimrc',
+  '~/AppData/Local/nvim/init.vim'
+]
+target.unix = '~/.vim/vimrc'
+
+[[link]]
+source = 'tmux/tmux.conf'
+target.unix = '~/.tmux.conf'
+
+[[link]]
+source = 'powershell/Microsoft.PowerShell_profile.ps1'
+target.windows = "~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"

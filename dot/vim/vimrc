@@ -1,0 +1,272 @@
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
+" Anton Rybakov vimrc file
+" External dependencies:
+"     curl - for downloading vim-plug on first initialization
+
+" Return Vim 8 default settings {{{
+unlet! skip_defaults_vim
+let s:defaults_file_location = $VIMRUNTIME . '/defaults.vim'
+if !empty(glob(s:defaults_file_location))
+  source $VIMRUNTIME/defaults.vim
+endif
+" }}}
+
+" Install Vim-Plug automatically {{{
+
+" Determine OS
+if !exists("g:os")
+  if has("win64") || has("win32") || has("win16")
+    let g:os = "Windows"
+  else
+    let g:os = substitute(system('uname'), '\n', '', '')
+  endif
+endif
+
+if g:os == "Windows"
+  let g:vimfolder = "vimfiles"
+else
+  let g:vimfolder = ".vim"
+endif
+
+if has("nvim")
+  let g:plug_plugged_location = stdpath('data') . '/plugged'
+  let g:plug_file_location = stdpath('data') . '/site/autoload/plug.vim'
+else
+  let g:plug_plugged_location = expand('~') . '/' . g:vimfolder . '/plugged'
+  let g:plug_file_location = expand('~') . '/' . g:vimfolder . '/autoload/plug.vim'
+endif
+
+if empty(glob(g:plug_file_location))
+  execute 'silent !curl -fLo '
+    \ . g:plug_file_location
+    \ . ' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  augroup init_install
+    au!	
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup END
+endif
+" }}}
+
+" Plugins plugged by Vim-Plug {{{
+call plug#begin(g:plug_plugged_location)
+
+" Vim infrastructure plugin
+Plug 'junegunn/vader.vim'
+
+" General purpose plugins
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-obsession'
+
+" TODO: Decide: is it better to install via system package manager?
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+" TODO: similar functionality with fzf.vim. Only one should be left
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
+Plug 'scrooloose/nerdtree'
+Plug 'itchyny/lightline.vim'
+Plug 'mhinz/vim-startify'
+Plug 'easymotion/vim-easymotion'
+
+" Additional text objects
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-entire'
+
+" Colorschemes
+" Commented were used by me previously
+" Plug 'morhetz/gruvbox'
+" Plug 'sjl/badwolf'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'shinchu/lightline-seoul256.vim'
+Plug 'ghifarit53/tokyonight-vim'
+
+" Markdown support
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
+
+" Outliners
+" Plug 'jceb/vim-orgmode' " Not maintained and very slow
+Plug 'axvr/org.vim' " Light-weight support for org files (hl and folds)
+" Plug 'vimoutliner/vimoutliner' " Haven't used it much
+Plug 'vimwiki/vimwiki'
+
+" Distraction free writing
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+
+" Git supporting
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/gv.vim'
+
+" Common programming plugins
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-apathy'
+Plug 'tpope/vim-projectionist'
+
+" LSP client
+" Plug 'prabirshrestha/async.vim' " Was used in Vim ~ 7.*
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+" Linting
+" Plug 'vim-syntastic/syntastic'
+" Plug 'w0rp/ale' " Acts like lsp client
+" Recently LS diagnostics used instead of separate linting
+
+" Tagbar
+Plug 'preservim/tagbar'
+" Plug 'liuchengxu/vista.vim' " Modern alternative for tagbar
+
+" UI plugins
+Plug 'voldikss/vim-floaterm'
+Plug 't9md/vim-choosewin'
+
+" REPL plugins
+Plug 'metakirby5/codi.vim'
+Plug 'jpalardy/vim-slime'
+
+" VimScript
+Plug 'tpope/vim-scriptease'
+
+" JSON
+Plug 'tpope/vim-jdaddy'
+
+" TOML
+Plug 'cespare/vim-toml'
+
+" Ruby
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-bundler'
+
+" Rust
+Plug 'rust-lang/rust.vim'
+
+" Powershell
+Plug 'PProvost/vim-ps1'
+
+" Graphviz
+Plug 'liuchengxu/graphviz.vim'
+
+" Disabled
+" Plug 'mrtazz/simplenote.vim'
+
+call plug#end()
+" }}}
+
+" Basic settings of Vim {{{
+set nocompatible
+set number
+set colorcolumn=80
+set visualbell
+
+set splitbelow
+set splitright
+
+set backspace=indent,eol,start
+
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+set nowrap
+
+set incsearch
+set hlsearch
+set ignorecase
+
+" Map leaders
+let mapleader = ","
+let maplocalleader = "\\"
+
+" }}}
+
+" Setting up colorscheme {{{
+if has('termguicolors') && empty($SSH_TTY) " Disabled because of Mosh
+  set termguicolors
+endif
+
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+silent! colorscheme tokyonight
+
+let g:lightline = {'colorscheme' : 'tokyonight'}
+set laststatus=2
+" }}}
+
+" Plugins settings {{{
+
+" vimwiki configuration
+let g:vimwiki_folding = 'expr'
+
+" vim-lsp configuration
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_diagnostics_virtual_text_enabled = 0
+
+" vim-slime configuration
+if has('nvim')
+  let g:slime_target = "neovim"
+else
+  let g:slime_target = "vimterminal"
+endif
+" }}}
+
+" Experimental section {{{
+
+" Some old fix for background colors in 256 color terminals
+" https://sunaku.github.io/vim-256color-bce.html
+" TODO: Maybe it doesn't required anymore?
+set t_ut=
+
+" Move to syntax files
+set shiftwidth=4
+set expandtab
+
+" Default folding (useful for vimwiki)
+set foldlevel=1
+
+command! EditRC edit $MYVIMRC
+command! LoadRC source $MYVIMRC
+command! -nargs=* -complete=help Vhelp vertical belowright help <args>
+
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+
+nnoremap s <nop>
+nnoremap sb :Buffers<CR>
+nnoremap sf :Files<CR>
+nnoremap scm :Commands<CR>
+nnoremap sco :Commits<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+
+" vim-choosewin configuration
+nmap - <Plug>(choosewin)
+let g:choosewin_overlay_enable = 0
+" }}}
+
+" Local vimrc {{{
+if has("nvim")
+  let s:local_vimrc = stdpath('config') . '/local.vim'
+else
+  let s:local_vimrc = fnamemodify(expand('$MYVIMRC'), ':p:h').'/vimrc_local'
+endif
+if filereadable(s:local_vimrc)
+  execute 'source' s:local_vimrc
+endif
+" }}}
