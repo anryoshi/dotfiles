@@ -151,11 +151,17 @@ Plug 'tpope/vim-bundler'
 " Rust
 Plug 'rust-lang/rust.vim'
 
+" Racket
+Plug 'wlangstroth/vim-racket'
+
 " Powershell
 Plug 'PProvost/vim-ps1'
 
 " Graphviz
 Plug 'liuchengxu/graphviz.vim'
+
+" Conjure is an alternative to emacs SLIME for LISP-like languages
+Plug 'Olical/conjure', {'tag': 'v4.18.0'}
 
 " Disabled
 " Plug 'mrtazz/simplenote.vim'
