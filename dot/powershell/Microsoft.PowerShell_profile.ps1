@@ -5,8 +5,25 @@ function Enter-DevEnv {
         throw "vswhere was not found"
     }
 
-    $instanceId = vswhere -property instanceId
-    $installationPath = vswhere -property installationPath
+    $installedVSes = vswhere -prerelease -format json | ConvertFrom-Json
+    if ($installedVSes.count -gt 1) {
+        for ($i = 0; $i -lt $installedVSes.length; $i++) {
+            "{0}: {1}" -f $i, $installedVSes[$i].installationName
+        }
+        $index = Read-Host -Prompt 'Choose VS'
+        if ($index -ge 0 -and $index -lt $installedVSes.count) {
+            $selected = $installedVSes[$index]
+        } else {
+            throw "index not in range"
+        }
+    } elseif ($installedVSes.count -eq 1) {
+        $selected = $installedVSes[0]
+    } else {
+        throw "no VS found"
+    }
+
+    $instanceId = $selected.instanceId
+    $installationPath = $selected.installationPath
 
     $devShellDll = "Microsoft.VisualStudio.DevShell.dll"
     $devShellDllPath = (Get-ChildItem -Path $installationPath -Filter $devShellDll -Recurse -ErrorAction SilentlyContinue -Force).fullname
