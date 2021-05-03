@@ -157,6 +157,9 @@ Plug 'wlangstroth/vim-racket'
 " Powershell
 Plug 'PProvost/vim-ps1'
 
+" Meson
+Plug 'igankevich/mesonic'
+
 " Graphviz
 Plug 'liuchengxu/graphviz.vim'
 
