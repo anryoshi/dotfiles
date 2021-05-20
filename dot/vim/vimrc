@@ -164,7 +164,9 @@ Plug 'igankevich/mesonic'
 Plug 'liuchengxu/graphviz.vim'
 
 " Conjure is an alternative to emacs SLIME for LISP-like languages
-Plug 'Olical/conjure', {'tag': 'v4.18.0'}
+if has('nvim')
+  Plug 'Olical/conjure', {'tag': 'v4.18.0'}
+endif
 
 " Disabled
 " Plug 'mrtazz/simplenote.vim'
