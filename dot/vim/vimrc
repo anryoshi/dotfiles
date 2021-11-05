@@ -68,9 +68,9 @@ Plug 'junegunn/fzf.vim'
 
 " TODO: Consider moving to vim-vinegar forever)
 Plug 'tpope/vim-vinegar'
-" Plug 'preservim/nerdtree'      " A tree explorer plugin
-Plug 'itchyny/lightline.vim'     " A light statusline
-Plug 'mhinz/vim-startify'        " The fancy start screen for Vim
+" Plug 'preservim/nerdtree'  " A tree explorer plugin
+Plug 'itchyny/lightline.vim' " A light statusline
+Plug 'mhinz/vim-startify'    " The fancy start screen for Vim
 
 " Additional text objects
 Plug 'kana/vim-textobj-user'   " Create your own text objects

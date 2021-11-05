@@ -8,6 +8,11 @@ source = 'vim/gvimrc'
 target.windows = '~/vimfiles/gvimrc'
 
 [[link]]
+source = 'vim/jat'
+target.windows = '~/vimfiles/pack/site/start/jat'
+target.unix = '~/.vim/pack/site/start/jat'
+
+[[link]]
 source = 'tmux/tmux.conf'
 target.unix = '~/.tmux.conf'
 
