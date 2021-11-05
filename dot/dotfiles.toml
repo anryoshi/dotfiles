@@ -1,10 +1,11 @@
 [[link]]
 source = 'vim/vimrc'
-target.windows = [
-  '~/vimfiles/vimrc',
-  '~/AppData/Local/nvim/init.vim'
-]
+target.windows = '~/vimfiles/vimrc'
 target.unix = '~/.vim/vimrc'
+
+[[link]]
+source = 'vim/gvimrc'
+target.windows = '~/vimfiles/gvimrc'
 
 [[link]]
 source = 'tmux/tmux.conf'

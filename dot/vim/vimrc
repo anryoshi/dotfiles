@@ -2,13 +2,16 @@
 " Anton Rybakov vimrc file
 " External dependencies:
 "     curl - for downloading vim-plug on first initialization
+"     fzf  - for fuzzy search functionality
 
 " Return Vim 8 default settings {{{
+
 unlet! skip_defaults_vim
 let s:defaults_file_location = $VIMRUNTIME . '/defaults.vim'
 if !empty(glob(s:defaults_file_location))
   source $VIMRUNTIME/defaults.vim
 endif
+
 " }}}
 
 " Install Vim-Plug automatically {{{
@@ -28,13 +31,8 @@ else
   let g:vimfolder = ".vim"
 endif
 
-if has("nvim")
-  let g:plug_plugged_location = stdpath('data') . '/plugged'
-  let g:plug_file_location = stdpath('data') . '/site/autoload/plug.vim'
-else
-  let g:plug_plugged_location = expand('~') . '/' . g:vimfolder . '/plugged'
-  let g:plug_file_location = expand('~') . '/' . g:vimfolder . '/autoload/plug.vim'
-endif
+let g:plug_plugged_location = expand('~') . '/' . g:vimfolder . '/plugged'
+let g:plug_file_location = expand('~') . '/' . g:vimfolder . '/autoload/plug.vim'
 
 if empty(glob(g:plug_file_location))
   execute 'silent !curl -fLo '
@@ -54,89 +52,89 @@ call plug#begin(g:plug_plugged_location)
 Plug 'junegunn/vader.vim'
 
 " General purpose plugins
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-speeddating'
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-sensible'    " Defaults everyone can agree on
+Plug 'tpope/vim-surround'    " Easy parentheses and etc
+Plug 'tpope/vim-commentary'  " Comment staff out
+Plug 'tpope/vim-sleuth'      " Heuristically set buffer options
+Plug 'tpope/vim-speeddating' " Increment dates, times, and more
+Plug 'tpope/vim-eunuch'      " Helpers for UNIX
+Plug 'tpope/vim-obsession'   " Continuously updated session files
 
-" TODO: Decide: is it better to install via system package manager?
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" NOTE: Previously fzf was be installed with vim itself but now I prefer
+"       to install it and manager with system package manager
+"       this plugin still required as dependency for fzf.vim
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-" TODO: similar functionality with fzf.vim. Only one should be left
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 
-Plug 'scrooloose/nerdtree'
-Plug 'itchyny/lightline.vim'
-Plug 'mhinz/vim-startify'
-Plug 'easymotion/vim-easymotion'
+" TODO: Consider moving to vim-vinegar forever)
+Plug 'tpope/vim-vinegar'
+" Plug 'preservim/nerdtree'      " A tree explorer plugin
+Plug 'itchyny/lightline.vim'     " A light statusline
+Plug 'mhinz/vim-startify'        " The fancy start screen for Vim
 
 " Additional text objects
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-user'   " Create your own text objects
+Plug 'kana/vim-textobj-entire' " Text objects for entire buffer
 
 " Colorschemes
 " Commented were used by me previously
 " Plug 'morhetz/gruvbox'
 " Plug 'sjl/badwolf'
-" Plug 'junegunn/seoul256.vim'
-" Plug 'shinchu/lightline-seoul256.vim'
+Plug 'junegunn/seoul256.vim'
 Plug 'ghifarit53/tokyonight-vim'
+" TODO: the repo was archived -> find a new one
 
 " Markdown support
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
 
-" Outliners
-" Plug 'jceb/vim-orgmode' " Not maintained and very slow
-Plug 'axvr/org.vim' " Light-weight support for org files (hl and folds)
-" Plug 'vimoutliner/vimoutliner' " Haven't used it much
-Plug 'vimwiki/vimwiki'
+" Emacs org-mode filetype plugin
+Plug 'axvr/org.vim'
+
+" Personal wiki plugin
+Plug 'lervag/wiki.vim'
 
 " Distraction free writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " Git supporting
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-fugitive'     " Illegal Git wrapper
+Plug 'airblade/vim-gitgutter' " Diff markers in the sign column
+Plug 'junegunn/gv.vim'        " A git commit browser
 
 " Common programming plugins
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-apathy'
-Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'      " Asynchronous build and test dispatcher
+Plug 'tpope/vim-endwise'       " Wisely complete lang structures
+Plug 'tpope/vim-apathy'        " Set the 'path' option for miscellaneous file types
+Plug 'tpope/vim-projectionist' " Granular project configuration
 
 " LSP client
-" Plug 'prabirshrestha/async.vim' " Was used in Vim ~ 7.*
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+
+" Asynchronous completion engine
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" TODO: Maybe another backends should be added to async complete
 
 " Linting
 " Plug 'vim-syntastic/syntastic'
-" Plug 'w0rp/ale' " Acts like lsp client
-" Recently LS diagnostics used instead of separate linting
-
-" Tagbar
-Plug 'preservim/tagbar'
-" Plug 'liuchengxu/vista.vim' " Modern alternative for tagbar
+" Plug 'w0rp/ale'
+" Plug 'rhysd/vim-lsp-ale'
+" TODO: vim-lsp can provide diagnostics similar to ale
+" 	as alternative vim-lsp itself can be used as backend to ale
+" 	and not report diagnostics on its own
 
 " UI plugins
 Plug 'voldikss/vim-floaterm'
-Plug 't9md/vim-choosewin'
+" Plug 't9md/vim-choosewin'
 
 " REPL plugins
-Plug 'metakirby5/codi.vim'
 Plug 'jpalardy/vim-slime'
 
 " VimScript
-Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-scriptease' " A Vim plugin for Vim plugins
 
 " JSON
 Plug 'tpope/vim-jdaddy'
@@ -163,13 +161,8 @@ Plug 'igankevich/mesonic'
 " Graphviz
 Plug 'liuchengxu/graphviz.vim'
 
-" Conjure is an alternative to emacs SLIME for LISP-like languages
-if has('nvim')
-  Plug 'Olical/conjure', {'tag': 'v4.18.0'}
-endif
-
-" Disabled
-" Plug 'mrtazz/simplenote.vim'
+" Misc
+" Plug 'vimsence/vimsence' " Presence for Discord
 
 call plug#end()
 " }}}
@@ -202,6 +195,7 @@ let maplocalleader = "\\"
 " }}}
 
 " Setting up colorscheme {{{
+
 if has('termguicolors') && empty($SSH_TTY) " Disabled because of Mosh
   set termguicolors
 endif
@@ -210,45 +204,44 @@ let g:tokyonight_style = 'night' " available: night, storm
 let g:tokyonight_enable_italic = 1
 silent! colorscheme tokyonight
 
+set background=dark
+
 let g:lightline = {'colorscheme' : 'tokyonight'}
 set laststatus=2
+
 " }}}
 
 " Plugins settings {{{
 
-" vimwiki configuration
-let g:vimwiki_folding = 'expr'
+" wiki.vim configuration
+let g:wiki_filetypes = ['jat']
+let g:wiki_link_extension = '.jat'
+" NOTE: should be provided in the vimrc_local
+" let g:wiki_root = ???
 
 " vim-lsp configuration
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_diagnostics_virtual_text_enabled = 0
 
 " vim-slime configuration
-if has('nvim')
-  let g:slime_target = "neovim"
-else
-  let g:slime_target = "vimterminal"
-endif
-" }}}
+let g:slime_target = "vimterminal"
 
-" Experimental section {{{
+" vim-choosewin configuration
+nmap - <Plug>(choosewin)
 
 " Some old fix for background colors in 256 color terminals
 " https://sunaku.github.io/vim-256color-bce.html
 " TODO: Maybe it doesn't required anymore?
 set t_ut=
 
-" Move to syntax files
-set shiftwidth=4
-set expandtab
-
-" Default folding (useful for vimwiki)
+" Default folding
 set foldlevel=1
 
 command! EditRC edit $MYVIMRC
 command! LoadRC source $MYVIMRC
 command! -nargs=* -complete=help Vhelp vertical belowright help <args>
 
+" To prevent accident click
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 nnoremap <up> <nop>
@@ -261,23 +254,46 @@ inoremap <down> <nop>
 nnoremap s <nop>
 nnoremap sb :Buffers<CR>
 nnoremap sf :Files<CR>
+nnoremap srg :Rg<CR>
 nnoremap scm :Commands<CR>
-nnoremap sco :Commits<CR>
-nnoremap <F2> :NERDTreeToggle<CR>
-nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
 
-" vim-choosewin configuration
-nmap - <Plug>(choosewin)
-let g:choosewin_overlay_enable = 0
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
 " }}}
 
 " Local vimrc {{{
-if has("nvim")
-  let s:local_vimrc = stdpath('config') . '/local.vim'
-else
-  let s:local_vimrc = fnamemodify(expand('$MYVIMRC'), ':p:h').'/vimrc_local'
-endif
+
+let s:local_vimrc = expand('~') . '/' . g:vimfolder . '/vimrc_local'
 if filereadable(s:local_vimrc)
   execute 'source' s:local_vimrc
 endif
+
 " }}}
+

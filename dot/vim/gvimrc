@@ -1,0 +1,17 @@
+" vim: set foldmethod=marker foldlevel=0 nomodeline:
+" Anton Rybakov gvimrc file
+" This configuraion used mostly on Windows
+
+" TODO: for some reason GVim supports only fonts that marked as monospaced
+"       so Jet Brains Mono font cannot be used here
+set guifont=FiraCode_NF:h14
+
+" Disable all bars and etc.
+set guioptions=
+
+" Disable all bells - audio and visual
+set noerrorbells
+set vb t_vb=
+
+" Use mouse in command line mode that acts like mouse in terminal
+set mouse=c

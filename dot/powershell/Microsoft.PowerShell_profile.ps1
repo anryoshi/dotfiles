@@ -1,3 +1,10 @@
+# vim: set foldmethod=marker foldlevel=0 nomodeline:
+# Anton Rybakov PowerShell profile file
+# Intended to be used with PS >= 7
+# External dependencies:
+#     vswhere  - for determine VS location
+#     starship - as cross-platform prompt
+
 Set-PSReadLineOption -EditMode Emacs
 
 function Enter-DevEnv {
