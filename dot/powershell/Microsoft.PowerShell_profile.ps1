@@ -12,7 +12,8 @@ function Enter-DevEnv {
         throw "vswhere was not found"
     }
 
-    $installedVSes = vswhere -prerelease -format json | ConvertFrom-Json
+    $installedVSes = vswhere -prerelease -format json -products "*" | ConvertFrom-Json
+
     if ($installedVSes.count -gt 1) {
         for ($i = 0; $i -lt $installedVSes.length; $i++) {
             "{0}: {1}" -f $i, $installedVSes[$i].installationName
