@@ -82,6 +82,7 @@ Plug 'kana/vim-textobj-entire' " Text objects for entire buffer
 " Plug 'sjl/badwolf'
 Plug 'junegunn/seoul256.vim'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'shinchu/lightline-seoul256.vim'
 " TODO: the repo was archived -> find a new one
 
 " Markdown support
@@ -200,14 +201,56 @@ if has('termguicolors') && empty($SSH_TTY) " Disabled because of Mosh
   set termguicolors
 endif
 
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 1
-silent! colorscheme tokyonight
+" let g:tokyonight_style = 'night' " available: night, storm
+" let g:tokyonight_enable_italic = 1
+" silent! colorscheme tokyonight
 
-set background=dark
+let g:seoul256_srgb = 1
+let g:seoul256_background = 254
+silent! colorscheme seoul256
 
-let g:lightline = {'colorscheme' : 'tokyonight'}
+set background=light
+
+" let g:lightline = {'colorscheme' : 'tokyonight'}
+let g:lightline = {
+      \ 'colorscheme' : 'seoul256',
+      \ 'mode_map': {
+        \ 'n' : 'N',
+        \ 'i' : 'I',
+        \ 'R' : 'R',
+        \ 'v' : 'V',
+        \ 'V' : 'VL',
+        \ "\<C-v>": 'VB',
+        \ 'c' : 'C',
+        \ 's' : 'S',
+        \ 'S' : 'SL',
+        \ "\<C-s>": 'SB',
+        \ 't': 'T',
+        \ },
+      \ }
 set laststatus=2
+set noshowmode
+
+hi! link Terminal Normal
+" TODO: Add color for dark version
+let g:terminal_ansi_colors = [
+    \ '#4e4e4e',
+    \ '#af5f5f',
+    \ '#5f885f',
+    \ '#af8760',
+    \ '#5f87ae',
+    \ '#875f87',
+    \ '#5f8787',
+    \ '#e4e4e4',
+    \ '#3a3a3a',
+    \ '#870100',
+    \ '#005f00',
+    \ '#d8865f',
+    \ '#0087af',
+    \ '#87025f',
+    \ '#008787',
+    \ '#eeeeee',
+    \ ]
 
 " }}}
 
