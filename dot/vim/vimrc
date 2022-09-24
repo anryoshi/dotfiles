@@ -162,6 +162,9 @@ Plug 'igankevich/mesonic'
 " Graphviz
 Plug 'liuchengxu/graphviz.vim'
 
+" Tables
+Plug 'dhruvasagar/vim-table-mode'
+
 " Misc
 " Plug 'vimsence/vimsence' " Presence for Discord
 
