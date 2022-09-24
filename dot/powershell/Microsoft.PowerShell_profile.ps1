@@ -90,4 +90,6 @@ function Lock-Vault ([string]$Path, [bool]$Silent = $false) {
           }
 }
 
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+
 Invoke-Expression (&starship init powershell)
