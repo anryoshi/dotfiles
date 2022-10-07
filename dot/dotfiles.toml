@@ -13,6 +13,14 @@ target.windows = '~/vimfiles/pack/site/start/jat'
 target.unix = '~/.vim/pack/site/start/jat'
 
 [[link]]
+source = 'ranger/rc.conf'
+target.unix = '~/.config/ranger/rc.conf'
+
+[[link]]
+source = 'fish/config.fish'
+target.unix = '~/.config/fish/config.fish'
+
+[[link]]
 source = 'tmux/tmux.conf'
 target.unix = '~/.tmux.conf'
 

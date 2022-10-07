@@ -167,6 +167,8 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " Misc
 " Plug 'vimsence/vimsence' " Presence for Discord
+" Plug 'mfukar/robotframework-vim'
+Plug 'khaveesh/vim-fish-syntax'
 
 call plug#end()
 " }}}
