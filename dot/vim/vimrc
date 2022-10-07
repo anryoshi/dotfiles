@@ -206,19 +206,19 @@ if has('termguicolors') && empty($SSH_TTY) " Disabled because of Mosh
   set termguicolors
 endif
 
-" let g:tokyonight_style = 'night' " available: night, storm
-" let g:tokyonight_enable_italic = 1
-" silent! colorscheme tokyonight
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
+silent! colorscheme tokyonight
 
-let g:seoul256_srgb = 1
-let g:seoul256_background = 254
-silent! colorscheme seoul256
-
-set background=light
+" let g:seoul256_srgb = 1
+" let g:seoul256_background = 254
+" silent! colorscheme seoul256
+" set background=light
 
 " let g:lightline = {'colorscheme' : 'tokyonight'}
+"      \ 'colorscheme' : 'seoul256',
 let g:lightline = {
-      \ 'colorscheme' : 'seoul256',
+      \ 'colorscheme' : 'tokyonight',
       \ 'mode_map': {
         \ 'n' : 'N',
         \ 'i' : 'I',
