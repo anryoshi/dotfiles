@@ -92,4 +92,6 @@ function Lock-Vault ([string]$Path, [bool]$Silent = $false) {
 
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
+New-Alias -Name "l" Get-ChildItemColor
+
 Invoke-Expression (&starship init powershell)
