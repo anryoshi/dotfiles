@@ -59,16 +59,15 @@ Plug 'tpope/vim-sleuth'      " Heuristically set buffer options
 Plug 'tpope/vim-speeddating' " Increment dates, times, and more
 Plug 'tpope/vim-eunuch'      " Helpers for UNIX
 Plug 'tpope/vim-obsession'   " Continuously updated session files
+Plug 'tpope/vim-unimpaired'  " Common mappings
 
-" NOTE: Previously fzf was be installed with vim itself but now I prefer
-"       to install it and manager with system package manager
+" NOTE: Previously fzf was be installed with vim itself but now
+"       it is managed with system package manager
 "       this plugin still required as dependency for fzf.vim
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
-" TODO: Consider moving to vim-vinegar forever)
-Plug 'tpope/vim-vinegar'
-" Plug 'preservim/nerdtree'  " A tree explorer plugin
+Plug 'tpope/vim-vinegar'     " ...together like oil and vinegar
 Plug 'itchyny/lightline.vim' " A light statusline
 Plug 'mhinz/vim-startify'    " The fancy start screen for Vim
 
@@ -77,20 +76,19 @@ Plug 'kana/vim-textobj-user'   " Create your own text objects
 Plug 'kana/vim-textobj-entire' " Text objects for entire buffer
 
 " Colorschemes
-" Commented were used by me previously
 " Plug 'morhetz/gruvbox'
 " Plug 'sjl/badwolf'
-Plug 'junegunn/seoul256.vim'
+" Plug 'junegunn/seoul256.vim'
+" Plug 'shinchu/lightline-seoul256.vim'
 Plug 'ghifarit53/tokyonight-vim'
-Plug 'shinchu/lightline-seoul256.vim'
-" TODO: the repo was archived -> find a new one
+Plug 'mcchrish/zenbones.nvim'
+
+" Language packs
+Plug 'sheerun/vim-polyglot'
 
 " Markdown support
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
-
-" Emacs org-mode filetype plugin
-Plug 'axvr/org.vim'
 
 " Personal wiki plugin
 Plug 'lervag/wiki.vim'
@@ -129,7 +127,7 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " UI plugins
 Plug 'voldikss/vim-floaterm'
-" Plug 't9md/vim-choosewin'
+Plug 't9md/vim-choosewin'
 
 " REPL plugins
 Plug 'jpalardy/vim-slime'
@@ -167,8 +165,15 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " Misc
 " Plug 'vimsence/vimsence' " Presence for Discord
-" Plug 'mfukar/robotframework-vim'
+
+" Fish-shell
 Plug 'khaveesh/vim-fish-syntax'
+
+" nvim healthcheck port
+Plug 'rhysd/vim-healthcheck'
+
+" Automatic tags management
+Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
 " }}}
@@ -202,60 +207,31 @@ let maplocalleader = "\\"
 
 " Setting up colorscheme {{{
 
-if has('termguicolors') && empty($SSH_TTY) " Disabled because of Mosh
-  set termguicolors
-endif
+" tokyonight configuration
 
-let g:tokyonight_style = 'night' " available: night, storm
+set termguicolors
+let g:tokyonight_style = 'night'
 let g:tokyonight_enable_italic = 1
 silent! colorscheme tokyonight
 
-" let g:seoul256_srgb = 1
-" let g:seoul256_background = 254
-" silent! colorscheme seoul256
-" set background=light
-
-" let g:lightline = {'colorscheme' : 'tokyonight'}
-"      \ 'colorscheme' : 'seoul256',
 let g:lightline = {
-      \ 'colorscheme' : 'tokyonight',
-      \ 'mode_map': {
-        \ 'n' : 'N',
-        \ 'i' : 'I',
-        \ 'R' : 'R',
-        \ 'v' : 'V',
-        \ 'V' : 'VL',
-        \ "\<C-v>": 'VB',
-        \ 'c' : 'C',
-        \ 's' : 'S',
-        \ 'S' : 'SL',
-        \ "\<C-s>": 'SB',
-        \ 't': 'T',
-        \ },
-      \ }
+  \ 'colorscheme' : 'tokyonight',
+  \ 'mode_map': {
+  \   'n' : 'N',
+  \   'i' : 'I',
+  \   'R' : 'R',
+  \   'v' : 'V',
+  \   'V' : 'VL',
+  \   "\<C-v>": 'VB',
+  \   'c' : 'C',
+  \   's' : 'S',
+  \   'S' : 'SL',
+  \   "\<C-s>": 'SB',
+  \   't': 'T',
+  \ },
+\ }
 set laststatus=2
 set noshowmode
-
-hi! link Terminal Normal
-" TODO: Add color for dark version
-let g:terminal_ansi_colors = [
-    \ '#4e4e4e',
-    \ '#af5f5f',
-    \ '#5f885f',
-    \ '#af8760',
-    \ '#5f87ae',
-    \ '#875f87',
-    \ '#5f8787',
-    \ '#e4e4e4',
-    \ '#3a3a3a',
-    \ '#870100',
-    \ '#005f00',
-    \ '#d8865f',
-    \ '#0087af',
-    \ '#87025f',
-    \ '#008787',
-    \ '#eeeeee',
-    \ ]
 
 " }}}
 
@@ -277,15 +253,11 @@ let g:slime_target = "vimterminal"
 " vim-choosewin configuration
 nmap - <Plug>(choosewin)
 
-" Some old fix for background colors in 256 color terminals
-" https://sunaku.github.io/vim-256color-bce.html
-" TODO: Maybe it doesn't required anymore?
-set t_ut=
-
 " Default folding
 set foldlevel=1
 
 command! EditRC edit $MYVIMRC
+command! EditRCLocal execute 'edit ' . $MYVIMRC . "_local"
 command! LoadRC source $MYVIMRC
 command! -nargs=* -complete=help Vhelp vertical belowright help <args>
 
@@ -308,7 +280,7 @@ nnoremap scm :Commands<CR>
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
-    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+
     nmap <buffer> gd <plug>(lsp-definition)
     nmap <buffer> gs <plug>(lsp-document-symbol-search)
     nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
@@ -324,8 +296,6 @@ function! s:on_lsp_buffer_enabled() abort
 
     let g:lsp_format_sync_timeout = 1000
     autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
-    
-    " refer to doc to add more commands
 endfunction
 
 augroup lsp_install
