@@ -70,6 +70,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'     " ...together like oil and vinegar
 Plug 'itchyny/lightline.vim' " A light statusline
 Plug 'mhinz/vim-startify'    " The fancy start screen for Vim
+Plug 'lambdalisue/fern.vim'
 
 " Additional text objects
 Plug 'kana/vim-textobj-user'   " Create your own text objects
