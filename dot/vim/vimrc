@@ -15,17 +15,7 @@ endif
 " }}}
 
 " Install Vim-Plug automatically {{{
-
-" Determine OS
-if !exists("g:os")
-  if has("win64") || has("win32") || has("win16")
-    let g:os = "Windows"
-  else
-    let g:os = substitute(system('uname'), '\n', '', '')
-  endif
-endif
-
-if g:os == "Windows"
+if has("win64") || has("win32") || has("win16")
   let g:vimfolder = "vimfiles"
 else
   let g:vimfolder = ".vim"
@@ -48,133 +38,99 @@ endif
 " Plugins plugged by Vim-Plug {{{
 call plug#begin(g:plug_plugged_location)
 
-" Vim infrastructure plugin
-Plug 'junegunn/vader.vim'
+" Plugins for Vimscript
+Plug 'tpope/vim-scriptease' " A Vim plugin for Vim plugins
+Plug 'junegunn/vader.vim'   " Testingg framework for Vimscript
+Plug 'kana/vim-vspec'       " Another testing frameworka for Vimscript
 
-" General purpose plugins
+" Core plugins
 Plug 'tpope/vim-sensible'    " Defaults everyone can agree on
-Plug 'tpope/vim-surround'    " Easy parentheses and etc
-Plug 'tpope/vim-commentary'  " Comment staff out
-Plug 'tpope/vim-sleuth'      " Heuristically set buffer options
-Plug 'tpope/vim-speeddating' " Increment dates, times, and more
-Plug 'tpope/vim-eunuch'      " Helpers for UNIX
+Plug 'tpope/vim-unimpaired'  " Complementary pairs of mappings
+Plug 'tpope/vim-surround'    " It is all about 'surroundings'
+Plug 'tpope/vim-commentary'  " Comments staff out. Oh, and it uncomments, too.
+Plug 'tpope/vim-sleuth'      " Heuristically set indent options and encoding
+Plug 'tpope/vim-speeddating' " Easily increment dates, times, and more
+Plug 'tpope/vim-eunuch'      " Vim sugar for the UNIX shell commands
 Plug 'tpope/vim-obsession'   " Continuously updated session files
-Plug 'tpope/vim-unimpaired'  " Common mappings
-
-" NOTE: Previously fzf was be installed with vim itself but now
-"       it is managed with system package manager
-"       this plugin still required as dependency for fzf.vim
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-
 Plug 'tpope/vim-vinegar'     " ...together like oil and vinegar
-Plug 'itchyny/lightline.vim' " A light statusline
-Plug 'mhinz/vim-startify'    " The fancy start screen for Vim
-Plug 'lambdalisue/fern.vim'
 
 " Additional text objects
 Plug 'kana/vim-textobj-user'   " Create your own text objects
 Plug 'kana/vim-textobj-entire' " Text objects for entire buffer
 
-" Colorschemes
+" Better text editing are...
+Plug 'godlygeek/tabular'          " ...align anything by symbol
+Plug 'dhruvasagar/vim-table-mode' " ...neat tables as you type
+
+" Misc plugins
+Plug 'rhysd/vim-healthcheck' " Polyfill for :checkhealth in Vim
+Plug 'mhinz/vim-startify'    " The fancy start screen for Vim
+
+" Fuzzy searching :: https://en.wikipedia.org/wiki/Approximate_string_matching
+" NOTE: Although fzf itself installed with system package manager
+"       it is still required as dependency for the fzf.vim
+Plug 'junegunn/fzf'     " General-purpose command-line fuzzy finder
+Plug 'junegunn/fzf.vim' " Things you can do with fzf and Vim.
+
+" Colorschemes (commented were used in the past)
+Plug 'jonstoler/werewolf.vim'         " Autoswitch between day/night theme
 " Plug 'morhetz/gruvbox'
 " Plug 'sjl/badwolf'
 " Plug 'junegunn/seoul256.vim'
-" Plug 'shinchu/lightline-seoul256.vim'
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'mcchrish/zenbones.nvim'
+" Plug 'ghifarit53/tokyonight-vim'
+Plug 'plan9-for-vimspace/acme-colors' " For the day
+Plug 'andreasvc/vim-256noir'          " For the night
 
-" Language packs
-Plug 'sheerun/vim-polyglot'
-
-" Markdown support
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+" VCS support plugins
+Plug 'tpope/vim-fugitive'     " So awesome, it should be illegal
+Plug 'junegunn/gv.vim'        " A git commit browser
+Plug 'mhinz/vim-signify'      " Sign column as indicator
 
 " Personal wiki plugin
-Plug 'lervag/wiki.vim'
+Plug 'lervag/wiki.vim' " 'do one thing and do it well'
 
 " Distraction free writing
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-
-" Git supporting
-Plug 'tpope/vim-fugitive'     " Illegal Git wrapper
-Plug 'airblade/vim-gitgutter' " Diff markers in the sign column
-Plug 'junegunn/gv.vim'        " A git commit browser
+Plug 'junegunn/goyo.vim'      " Means 'silence' in Korean
+Plug 'junegunn/limelight.vim' " Hyperfocus-writing in Vim
 
 " Common programming plugins
 Plug 'tpope/vim-dispatch'      " Asynchronous build and test dispatcher
 Plug 'tpope/vim-endwise'       " Wisely complete lang structures
 Plug 'tpope/vim-apathy'        " Set the 'path' option for miscellaneous file types
-Plug 'tpope/vim-projectionist' " Granular project configuration
+Plug 'tpope/vim-projectionist' " Granular project configuration using 'projections'
 
-" LSP client
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
+" Tags file management
+Plug 'ludovicchabant/vim-gutentags'
+
+" LSP client :: https://en.wikipedia.org/wiki/Language_Server_Protocol
+Plug 'prabirshrestha/vim-lsp'  " Async Language Server Protocol plugin
+Plug 'mattn/vim-lsp-settings'  " Auto configurations for vim-lsp
 
 " Asynchronous completion engine
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" TODO: Maybe another backends should be added to async complete
-
-" Linting
-" Plug 'vim-syntastic/syntastic'
-" Plug 'w0rp/ale'
-" Plug 'rhysd/vim-lsp-ale'
-" TODO: vim-lsp can provide diagnostics similar to ale
-" 	as alternative vim-lsp itself can be used as backend to ale
-" 	and not report diagnostics on its own
-
-" UI plugins
-Plug 'voldikss/vim-floaterm'
-Plug 't9md/vim-choosewin'
+Plug 'prabirshrestha/asyncomplete.vim'     " Async autocompletion with |timers|.
+Plug 'prabirshrestha/asyncomplete-lsp.vim' " Bounds vim-lsp and asynccomplete.vim
 
 " REPL plugins
-Plug 'jpalardy/vim-slime'
+Plug 'jpalardy/vim-slime' " From the Emacs world SLIME as it is
 
-" VimScript
-Plug 'tpope/vim-scriptease' " A Vim plugin for Vim plugins
+" Markup languages and serialization formats
+Plug 'preservim/vim-markdown' " Markdown
+Plug 'tpope/vim-jdaddy'       " JSON
+Plug 'cespare/vim-toml'       " TOML
 
-" JSON
-Plug 'tpope/vim-jdaddy'
+" Programming languages plugins
+Plug 'rust-lang/rust.vim'       " Rust file detection, syntax and etc.
+Plug 'wlangstroth/vim-racket'   " Racket file detection, syntax and etc.
+Plug 'khaveesh/vim-fish-syntax' " Fish file detection, syntax and etc.
+Plug 'PProvost/vim-ps1'         " Powershell file detection, syntax and etc.
 
-" TOML
-Plug 'cespare/vim-toml'
+" Build tools and etc.
+Plug 'igankevich/mesonic'     " C/C++ Meson helper
+Plug 'tpope/vim-rake'         " Ruby Rake helper
+Plug 'tpope/vim-bundler'      " Ruby Bundler helper
 
-" Ruby
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-bundler'
-
-" Rust
-Plug 'rust-lang/rust.vim'
-
-" Racket
-Plug 'wlangstroth/vim-racket'
-
-" Powershell
-Plug 'PProvost/vim-ps1'
-
-" Meson
-Plug 'igankevich/mesonic'
-
-" Graphviz
-Plug 'liuchengxu/graphviz.vim'
-
-" Tables
-Plug 'dhruvasagar/vim-table-mode'
-
-" Misc
-" Plug 'vimsence/vimsence' " Presence for Discord
-
-" Fish-shell
-Plug 'khaveesh/vim-fish-syntax'
-
-" nvim healthcheck port
-Plug 'rhysd/vim-healthcheck'
-
-" Automatic tags management
-Plug 'ludovicchabant/vim-gutentags'
+" Other tools
+Plug 'liuchengxu/graphviz.vim' " Graphviz helper
 
 call plug#end()
 " }}}
@@ -204,45 +160,31 @@ set ignorecase
 let mapleader = ","
 let maplocalleader = "\\"
 
+set laststatus=2
+set foldlevel=1
+
+if executable("rg")
+    set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+    set grepformat=%f:%l:%c:%m
+endif
+
 " }}}
 
 " Setting up colorscheme {{{
 
-" tokyonight configuration
-
 set termguicolors
-let g:tokyonight_style = 'night'
-let g:tokyonight_enable_italic = 1
-silent! colorscheme tokyonight
-
-let g:lightline = {
-  \ 'colorscheme' : 'tokyonight',
-  \ 'mode_map': {
-  \   'n' : 'N',
-  \   'i' : 'I',
-  \   'R' : 'R',
-  \   'v' : 'V',
-  \   'V' : 'VL',
-  \   "\<C-v>": 'VB',
-  \   'c' : 'C',
-  \   's' : 'S',
-  \   'S' : 'SL',
-  \   "\<C-s>": 'SB',
-  \   't': 'T',
-  \ },
-\ }
-set laststatus=2
-set noshowmode
+" NOTE: Should be handled by werewolf.vim
+"       but there is a bug with 'g:colors_name'
+silent! colorscheme acme
 
 " }}}
 
 " Plugins settings {{{
 
 " wiki.vim configuration
+" NOTE: g:wiki_root should be provided in the vimrc_local
 let g:wiki_filetypes = ['jat']
 let g:wiki_link_extension = '.jat'
-" NOTE: should be provided in the vimrc_local
-" let g:wiki_root = ???
 
 " vim-lsp configuration
 let g:lsp_diagnostics_float_cursor = 1
@@ -251,11 +193,13 @@ let g:lsp_diagnostics_virtual_text_enabled = 0
 " vim-slime configuration
 let g:slime_target = "vimterminal"
 
-" vim-choosewin configuration
-nmap - <Plug>(choosewin)
+" werewolf.vim confiuration
+let g:werewolf_day_themes = ['acme']
+let g:werewolf_night_themes = ['256_noir']
 
-" Default folding
-set foldlevel=1
+" }}}
+
+" Custom commands and mappings {{{
 
 command! EditRC edit $MYVIMRC
 command! EditRCLocal execute 'edit ' . $MYVIMRC . "_local"
@@ -315,4 +259,3 @@ if filereadable(s:local_vimrc)
 endif
 
 " }}}
-

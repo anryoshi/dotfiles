@@ -3,9 +3,7 @@
 " This configuraion used mostly on Windows
 
 " TODO: for some reason GVim supports only fonts that marked as monospaced
-"       so Jet Brains Mono font cannot be used here
-" set guifont=FiraCode_NF:h14
-set guifont=Sarasa_Mono_J:h16
+set guifont=Sarasa_Fixed_J:h18
 
 " Disable all bars and etc.
 set guioptions=
