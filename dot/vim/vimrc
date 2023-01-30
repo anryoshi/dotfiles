@@ -73,13 +73,14 @@ Plug 'junegunn/fzf'     " General-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim' " Things you can do with fzf and Vim.
 
 " Colorschemes (commented were used in the past)
-Plug 'jonstoler/werewolf.vim'         " Autoswitch between day/night theme
+" Plug 'jonstoler/werewolf.vim'         " Autoswitch between day/night theme
 " Plug 'morhetz/gruvbox'
 " Plug 'sjl/badwolf'
 " Plug 'junegunn/seoul256.vim'
 " Plug 'ghifarit53/tokyonight-vim'
-Plug 'plan9-for-vimspace/acme-colors' " For the day
-Plug 'andreasvc/vim-256noir'          " For the night
+" Plug 'plan9-for-vimspace/acme-colors' " For the day
+" Plug 'andreasvc/vim-256noir'          " For the night
+Plug 'bluz71/vim-moonfly-colors'        " Temporary solution
 
 " VCS support plugins
 Plug 'tpope/vim-fugitive'     " So awesome, it should be illegal
@@ -175,7 +176,7 @@ endif
 set termguicolors
 " NOTE: Should be handled by werewolf.vim
 "       but there is a bug with 'g:colors_name'
-silent! colorscheme acme
+silent! colorscheme moonfly
 
 " }}}
 
@@ -194,8 +195,8 @@ let g:lsp_diagnostics_virtual_text_enabled = 0
 let g:slime_target = "vimterminal"
 
 " werewolf.vim confiuration
-let g:werewolf_day_themes = ['acme']
-let g:werewolf_night_themes = ['256_noir']
+" let g:werewolf_day_themes = ['acme']
+" let g:werewolf_night_themes = ['256_noir']
 
 " }}}
 
