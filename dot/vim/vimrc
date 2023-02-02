@@ -174,8 +174,6 @@ endif
 " Setting up colorscheme {{{
 
 set termguicolors
-" NOTE: Should be handled by werewolf.vim
-"       but there is a bug with 'g:colors_name'
 silent! colorscheme moonfly
 
 " }}}
@@ -193,10 +191,6 @@ let g:lsp_diagnostics_virtual_text_enabled = 0
 
 " vim-slime configuration
 let g:slime_target = "vimterminal"
-
-" werewolf.vim confiuration
-" let g:werewolf_day_themes = ['acme']
-" let g:werewolf_night_themes = ['256_noir']
 
 " }}}
 
