@@ -126,9 +126,10 @@ Plug 'khaveesh/vim-fish-syntax' " Fish file detection, syntax and etc.
 Plug 'PProvost/vim-ps1'         " Powershell file detection, syntax and etc.
 
 " Build tools and etc.
-Plug 'igankevich/mesonic'     " C/C++ Meson helper
-Plug 'tpope/vim-rake'         " Ruby Rake helper
-Plug 'tpope/vim-bundler'      " Ruby Bundler helper
+Plug 'igankevich/mesonic'        " C/C++ Meson helper
+Plug 'tpope/vim-rake'            " Ruby Rake helper
+Plug 'tpope/vim-bundler'         " Ruby Bundler helper
+Plug 'itspriddle/vim-shellcheck' " Make sh greate again
 
 " Other tools
 Plug 'liuchengxu/graphviz.vim' " Graphviz helper
@@ -191,6 +192,10 @@ let g:lsp_diagnostics_virtual_text_enabled = 0
 
 " vim-slime configuration
 let g:slime_target = "vimterminal"
+
+" fzf.vim configuraiton
+let g:fzf_layout = { 'down': '50%' }
+let g:fzf_preview_window = ['hidden,right,50%,<70(up,40%)', 'ctrl-/']
 
 " }}}
 
