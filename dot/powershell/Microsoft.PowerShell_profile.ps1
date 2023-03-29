@@ -94,4 +94,5 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 
 New-Alias -Name "l" Get-ChildItemColor
 
+Invoke-Expression (&scoop-search --hook)
 Invoke-Expression (&starship init powershell)
