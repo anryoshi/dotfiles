@@ -65,6 +65,7 @@ Plug 'dhruvasagar/vim-table-mode' " ...neat tables as you type
 " Misc plugins
 Plug 'rhysd/vim-healthcheck' " Polyfill for :checkhealth in Vim
 Plug 'mhinz/vim-startify'    " The fancy start screen for Vim
+Plug 'lambdalisue/fern.vim'
 
 " Fuzzy searching :: https://en.wikipedia.org/wiki/Approximate_string_matching
 " NOTE: Although fzf itself installed with system package manager
@@ -73,14 +74,14 @@ Plug 'junegunn/fzf'     " General-purpose command-line fuzzy finder
 Plug 'junegunn/fzf.vim' " Things you can do with fzf and Vim.
 
 " Colorschemes (commented were used in the past)
-" Plug 'jonstoler/werewolf.vim'         " Autoswitch between day/night theme
+" Plug 'jonstoler/werewolf.vim' " Autoswitch between day/night theme
 " Plug 'morhetz/gruvbox'
 " Plug 'sjl/badwolf'
 " Plug 'junegunn/seoul256.vim'
 " Plug 'ghifarit53/tokyonight-vim'
-" Plug 'plan9-for-vimspace/acme-colors' " For the day
-" Plug 'andreasvc/vim-256noir'          " For the night
-Plug 'bluz71/vim-moonfly-colors'        " Temporary solution
+" Plug 'plan9-for-vimspace/acme-colors'
+" Plug 'andreasvc/vim-256noir'
+Plug 'bluz71/vim-moonfly-colors'
 
 " VCS support plugins
 Plug 'tpope/vim-fugitive'     " So awesome, it should be illegal
