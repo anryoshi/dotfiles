@@ -5,6 +5,12 @@
 #     vswhere  - for determine VS location
 #     starship - as cross-platform prompt
 
+$SessionEncoding = [Text.UTF8Encoding]::new()
+$OutputEncoding = $SessionEncoding
+[Console]::OutputEncoding = $SessionEncoding
+[Console]::OutputEncoding = $SessionEncoding
+$PSDefaultParameterValues['*:Encoding'] = 'utf8'
+
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadlineOption -BellStyle None
 

@@ -134,6 +134,7 @@ Plug 'itspriddle/vim-shellcheck' " Make sh greate again
 
 " Other tools
 Plug 'liuchengxu/graphviz.vim' " Graphviz helper
+Plug 'webdevel/tabulous'
 
 call plug#end()
 " }}}
@@ -197,6 +198,10 @@ let g:slime_target = "vimterminal"
 " fzf.vim configuraiton
 let g:fzf_layout = { 'down': '50%' }
 let g:fzf_preview_window = ['hidden,right,50%,<70(up,40%)', 'ctrl-/']
+
+" vim-gutentags
+let g:gutentags_enabled = 0
+let g:gutentags_exclude_filetypes = ['jat']
 
 " }}}
 
