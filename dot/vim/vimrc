@@ -140,17 +140,6 @@ call plug#end()
 " }}}
 
 " Basic settings of Vim {{{
-set nocompatible
-set number
-set colorcolumn=80
-set visualbell
-
-set splitbelow
-set splitright
-
-set backspace=indent,eol,start
-
-set shiftwidth=4
 set expandtab
 set autoindent
 set smartindent
@@ -187,6 +176,16 @@ silent! colorscheme moonfly
 " NOTE: g:wiki_root should be provided in the vimrc_local
 let g:wiki_filetypes = ['jat']
 let g:wiki_link_extension = '.jat'
+let g:wiki_index_name = 'todo'
+
+" TODO: This is not fully finished customization for the jat tags
+"       - make function?
+"       - renaming of the tag causes entire line content replacement
+let s:tag_parser = deepcopy(g:wiki#tags#default_parser)
+let s:tag_parser.re_match = '\v%(^|\s)\@\zs[^@: ]+'
+let s:tag_parser.re_findstart = '\v%(^|\s)\@\zs[^@: ]+'
+let s:tag_parser.re_parse = '\v\@\zs[^@: ]+\ze'
+let g:wiki_tag_parsers = [s:tag_parser]
 
 " vim-lsp configuration
 let g:lsp_diagnostics_float_cursor = 1
@@ -202,6 +201,11 @@ let g:fzf_preview_window = ['hidden,right,50%,<70(up,40%)', 'ctrl-/']
 " vim-gutentags
 let g:gutentags_enabled = 0
 let g:gutentags_exclude_filetypes = ['jat']
+
+" vim-startify
+let g:startify_lists = [
+  \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] }
+  \ ]
 
 " }}}
 
