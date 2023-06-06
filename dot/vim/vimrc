@@ -1,10 +1,11 @@
 " vim: set foldmethod=marker foldlevel=0 nomodeline:
 " Anton Rybakov vimrc file
 " External dependencies:
-"     curl - for downloading vim-plug on first initialization
-"     fzf  - for fuzzy search functionality
+"     curl    :: for downloading vim-plug on first initialization
+"     fzf     :: for fuzzy search functionality
+"     ripgrep :: for fast external grep
 
-" Return Vim 8 default settings {{{
+" Return Vim default settings {{{
 
 unlet! skip_defaults_vim
 let s:defaults_file_location = $VIMRUNTIME . '/defaults.vim'
@@ -126,6 +127,11 @@ Plug 'wlangstroth/vim-racket'   " Racket file detection, syntax and etc.
 Plug 'khaveesh/vim-fish-syntax' " Fish file detection, syntax and etc.
 Plug 'PProvost/vim-ps1'         " Powershell file detection, syntax and etc.
 
+" Lisp stuff
+Plug 'guns/vim-sexp'
+Plug 'tpope/vim-sexp-mappings-for-regular-people'
+Plug 'rhysd/reply.vim'
+
 " Build tools and etc.
 Plug 'igankevich/mesonic'        " C/C++ Meson helper
 Plug 'tpope/vim-rake'            " Ruby Rake helper
@@ -144,6 +150,10 @@ set expandtab
 set autoindent
 set smartindent
 set nowrap
+
+set splitbelow
+set splitright
+set colorcolumn=80
 
 set incsearch
 set hlsearch
@@ -206,6 +216,9 @@ let g:gutentags_exclude_filetypes = ['jat']
 let g:startify_lists = [
   \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] }
   \ ]
+
+" vim-sexp
+let g:sexp_filetypes = 'clojure,scheme,lisp,sicp'
 
 " }}}
 

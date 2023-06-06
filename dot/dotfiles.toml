@@ -1,29 +1,53 @@
+# Vim is Vim 
 [[link]]
 source = 'vim/vimrc'
 target.windows = '~/vimfiles/vimrc'
 target.unix = '~/.vim/vimrc'
-
 [[link]]
 source = 'vim/gvimrc'
 target.windows = '~/vimfiles/gvimrc'
 
+# Just a Text Vim filetype plugin
+# TODO: Should be separated to other repository
 [[link]]
 source = 'vim/jat'
 target.windows = '~/vimfiles/pack/site/start/jat'
 target.unix = '~/.vim/pack/site/start/jat'
 
+# Vocabulary files support
+# TODO: This is temporary
+[[link]]
+source = 'vim/voc'
+target.windows = '~/vimfiles/pack/site/start/voc'
+target.unix = '~/.vim/pack/site/start/voc'
+
 [[link]]
 source = 'ranger/rc.conf'
 target.unix = '~/.config/ranger/rc.conf'
 
+# fish shell configuration and functions files
 [[link]]
 source = 'fish/config.fish'
 target.unix = '~/.config/fish/config.fish'
+[[link]]
+source = 'fish/functions/e.fish'
+target.unix = '~/.config/fish/functions/e.fish'
+[[link]]
+source = 'fish/functions/et.fish'
+target.unix = '~/.config/fish/functions/et.fish'
+[[link]]
+source = 'fish/functions/vims.fish'
+target.unix = '~/.config/fish/functions/vims.fish'
+[[link]]
+source = 'fish/completions/vims.fish'
+target.unix = '~/.config/fish/completions/vims.fish'
 
+# tmux configuration
 [[link]]
 source = 'tmux/tmux.conf'
 target.unix = '~/.tmux.conf'
 
+# OMG, it's PowerShell
 [[link]]
 source = 'powershell/Microsoft.PowerShell_profile.ps1'
 target.windows = "~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
