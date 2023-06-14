@@ -3,7 +3,7 @@
 " This configuraion used mostly on Windows
 
 " TODO: for some reason GVim supports only fonts that marked as monospaced
-set guifont=Sarasa_Fixed_J:h18
+set guifont=Sarasa_Fixed_J:h14
 
 " Disable all bars and etc.
 set guioptions=

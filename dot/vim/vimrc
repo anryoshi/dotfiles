@@ -151,6 +151,8 @@ set autoindent
 set smartindent
 set nowrap
 
+set number
+set relativenumber
 set splitbelow
 set splitright
 set colorcolumn=80
@@ -214,7 +216,7 @@ let g:gutentags_exclude_filetypes = ['jat']
 
 " vim-startify
 let g:startify_lists = [
-  \ { 'type': 'bookmarks', 'header': ['   Bookmarks'] }
+  \ { 'type': 'bookmarks' }
   \ ]
 
 " vim-sexp
