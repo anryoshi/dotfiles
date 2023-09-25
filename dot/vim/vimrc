@@ -152,7 +152,6 @@ set smartindent
 set nowrap
 
 set number
-set relativenumber
 set splitbelow
 set splitright
 set colorcolumn=80
