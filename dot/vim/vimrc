@@ -139,7 +139,10 @@ Plug 'tpope/vim-bundler'         " Ruby Bundler helper
 Plug 'itspriddle/vim-shellcheck' " Make sh greate again
 
 " Other tools
-Plug 'liuchengxu/graphviz.vim' " Graphviz helper
+Plug 'liuchengxu/graphviz.vim'          " Graphviz helper
+Plug 'tyru/open-browser.vim'
+Plug 'aklt/plantuml-syntax'
+Plug 'weirongxu/plantuml-previewer.vim' " PlantUML
 Plug 'webdevel/tabulous'
 
 call plug#end()
