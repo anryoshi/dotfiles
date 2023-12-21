@@ -45,7 +45,7 @@ target.unix = '~/.config/fish/completions/vims.fish'
 # tmux configuration
 [[link]]
 source = 'tmux/tmux.conf'
-target.unix = '~/.tmux.conf'
+target.unix = '~/.config/tmux/tmux.conf'
 
 # OMG, it's PowerShell
 [[link]]

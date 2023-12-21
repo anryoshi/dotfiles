@@ -25,7 +25,11 @@ rbenv init - | source
 pyenv init - | source
 
 # homebrew .bin to PATH
+readd_on_top_of_path "$HOME/.cargo/bin"
 readd_on_top_of_path "$HOME/.bin"
 
 # starship
 starship init fish --print-full-init | source
+
+set -gx EDITOR vim
+
