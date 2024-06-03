@@ -145,6 +145,8 @@ Plug 'aklt/plantuml-syntax'
 Plug 'weirongxu/plantuml-previewer.vim' " PlantUML
 Plug 'webdevel/tabulous'
 
+Plug 'lervag/vimtex'
+
 call plug#end()
 " }}}
 
@@ -226,6 +228,9 @@ let g:sexp_filetypes = 'clojure,scheme,lisp,sicp'
 
 " vim-dispatch
 let g:dispatch_no_tmux_make = 1
+
+" vimtex
+let g:vimtex_view_method = 'sioyek'
 
 " }}}
 
