@@ -22,6 +22,12 @@
   :custom
   (straight-use-package-by-default t))
 
+(use-package paredit)
+
+(use-package racket-mode)
+
+(use-package sicp)
+
 (use-package seoul256-theme
   :init
   (setq seoul256-background 256)
@@ -59,4 +65,12 @@
 (setq lock-file-name-transforms
       '(("\\`/.*/\\([^/]+\\)\\'" "~/.local/state/emacs/locks/\\1" t)))
 
+(require 'ls-lisp)
 
+(setq ls-lisp-dirs-first t)
+(setq ls-lisp-use-string-collate nil)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (ruby . t)))
