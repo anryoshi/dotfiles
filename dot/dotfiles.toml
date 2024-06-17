@@ -52,9 +52,10 @@ target.unix = '~/.config/tmux/tmux.conf'
 source = 'powershell/Microsoft.PowerShell_profile.ps1'
 target.windows = "~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
 
+# Emacs
 [[link]]
 source = 'emacs/init.el'
-target.windows = "~/AppData/Roaming/.emacs.d/init.el"
+target.windows = "~/.emacs.d/init.el"
 [[link]]
 source = 'emacs/early-init.el'
-target.windows = "~/AppData/Roaming/.emacs.d/early-init.el"
+target.windows = "~/.emacs.d/early-init.el"

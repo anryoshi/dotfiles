@@ -37,6 +37,18 @@
   :defer t
   :straight (:repo "anki-editor/anki-editor"))
 
+(use-package org-roam
+  :custom
+  (org-roam-directory (file-truename "~/roam"))
+  (org-roam-capture-templates
+   '(("d" "default" plain "%?" :target
+      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ("c" "Add new entry to c")
+     ("cg" "Add new g entry to c" plain "%?" :target
+      (file+head "c/g/${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (tool-bar-mode -1)
@@ -74,3 +86,15 @@
  'org-babel-load-languages
  '((emacs-lisp . t)
    (ruby . t)))
+
+(defun delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if filename
+        (if (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
+            (progn
+              (delete-file filename)
+              (message "Deleted file %s." filename)
+              (kill-buffer)))
+      (message "Not a file visiting buffer!"))))
