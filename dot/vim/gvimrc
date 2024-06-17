@@ -14,3 +14,9 @@ set vb t_vb=
 
 " Use mouse in command line mode that acts like mouse in terminal
 set mouse=c
+
+" Local gvimrc
+let s:local_gvimrc = expand('~') . '/' . g:vimfolder . '/gvimrc_local'
+if filereadable(s:local_gvimrc)
+  execute 'source' s:local_gvimrc
+endif
