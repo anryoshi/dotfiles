@@ -1,3 +1,9 @@
+;; This is temporary way to do local parameterization
+;; of the configuration file. Until better way invented
+(let ((local-config "~/.emacs.d/local.el"))
+  (if (file-exists-p local-config)
+      (load-file local-config)))
+
 (setq straight-repository-branch "develop")
 
 ;; Install straight.el
@@ -39,15 +45,16 @@
 
 (use-package org-roam
   :custom
-  (org-roam-directory (file-truename "~/roam"))
+  (org-roam-directory
+   (if (boundp 'anryoshi-org-roam-directory)
+       (file-truename anryoshi-org-roam-directory)))
   (org-roam-capture-templates
-   '(("d" "default" plain "%?" :target
-      (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t)
-     ("c" "Add new entry to c")
-     ("cg" "Add new g entry to c" plain "%?" :target
-      (file+head "c/g/${slug}.org" "#+title: ${title}\n")
-      :unnarrowed t))))
+   (if (boundp 'anryoshi-org-roam-capture-templates)
+       anryoshi-org-roam-capture-templates)))
+
+(use-package vertico
+  :init
+  (vertico-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -57,6 +64,8 @@
 (desktop-save-mode 1)
 
 (setq inhibit-startup-screen t)
+
+(setq-default indent-tabs-mode nil)
 
 (add-to-list 'default-frame-alist
              '(font . "Sarasa Mono J-16"))
@@ -86,6 +95,8 @@
  'org-babel-load-languages
  '((emacs-lisp . t)
    (ruby . t)))
+
+;; Sandbox section
 
 (defun delete-file-and-buffer ()
   "Kill the current buffer and deletes the file it is visiting."
