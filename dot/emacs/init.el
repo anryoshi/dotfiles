@@ -50,11 +50,19 @@
        (file-truename anryoshi-org-roam-directory)))
   (org-roam-capture-templates
    (if (boundp 'anryoshi-org-roam-capture-templates)
-       anryoshi-org-roam-capture-templates)))
+       anryoshi-org-roam-capture-templates))
+  :bind
+  (("C-c n l" . org-roam-buffer-toggle)
+   ("C-c n f" . org-roam-node-find)
+   ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-db-autosync-mode))
 
 (use-package vertico
   :init
   (vertico-mode))
+
+(use-package magit)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -80,11 +88,21 @@
    kept-old-versions 2
    version-control t)
 
-(setq auto-save-file-name-transforms
-      '(("\\`/.*/\\([^/]+\\)\\'" "~/.local/state/emacs/autosave/\\1" t)))
+;; (setq auto-save-file-name-transforms
+;;      '(("\\`/.*/\\([^/]+\\)\\'" "C:/Users/anryo/.local/state/emacs/autosave/\\1" t)))
 
-(setq lock-file-name-transforms
-      '(("\\`/.*/\\([^/]+\\)\\'" "~/.local/state/emacs/locks/\\1" t)))
+(let ((save-files-directory "~/.local/state/emacs/autosave/"))
+  (make-directory save-files-directory :parents)
+  (setq auto-save-file-name-transforms
+    `((".*" ,save-files-directory t))))
+
+;; (setq lock-file-name-transforms
+;;      '(("\\`/.*/\\([^/]+\\)\\'" "C:/Users/anryo/.local/state/emacs/locks/\\1" t)))
+
+(let ((lock-files-directory "~/.local/state/emacs/locks/"))
+  (make-directory lock-files-directory :parents)
+  (setq lock-file-name-transforms
+    `((".*" ,lock-files-directory t))))
 
 (require 'ls-lisp)
 
