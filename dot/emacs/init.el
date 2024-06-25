@@ -64,6 +64,8 @@
 
 (use-package magit)
 
+(use-package writeroom-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (tool-bar-mode -1)
@@ -108,6 +110,7 @@
 
 (setq ls-lisp-dirs-first t)
 (setq ls-lisp-use-string-collate nil)
+(setq ls-lisp-verbosity nil)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
