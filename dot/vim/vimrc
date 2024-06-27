@@ -147,6 +147,8 @@ Plug 'webdevel/tabulous'
 
 Plug 'lervag/vimtex'
 
+Plug 'rickhowe/spotdiff.vim'
+
 call plug#end()
 " }}}
 
