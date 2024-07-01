@@ -4,6 +4,7 @@
   (if (file-exists-p local-config)
       (load-file local-config)))
 
+;; Switching from `master` to `develop` branch
 (setq straight-repository-branch "develop")
 
 ;; Install straight.el
@@ -27,6 +28,8 @@
 (use-package straight
   :custom
   (straight-use-package-by-default t))
+
+;; Used packages
 
 (use-package paredit)
 
@@ -66,7 +69,7 @@
 
 (use-package writeroom-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Configuration
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -90,21 +93,17 @@
    kept-old-versions 2
    version-control t)
 
-;; (setq auto-save-file-name-transforms
-;;      '(("\\`/.*/\\([^/]+\\)\\'" "C:/Users/anryo/.local/state/emacs/autosave/\\1" t)))
-
 (let ((save-files-directory "~/.local/state/emacs/autosave/"))
   (make-directory save-files-directory :parents)
   (setq auto-save-file-name-transforms
     `((".*" ,save-files-directory t))))
 
-;; (setq lock-file-name-transforms
-;;      '(("\\`/.*/\\([^/]+\\)\\'" "C:/Users/anryo/.local/state/emacs/locks/\\1" t)))
-
 (let ((lock-files-directory "~/.local/state/emacs/locks/"))
   (make-directory lock-files-directory :parents)
   (setq lock-file-name-transforms
     `((".*" ,lock-files-directory t))))
+
+;; ls-lisp configuration for Windows
 
 (require 'ls-lisp)
 
@@ -112,10 +111,8 @@
 (setq ls-lisp-use-string-collate nil)
 (setq ls-lisp-verbosity nil)
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (ruby . t)))
+;; Org-roam
+(setq org-roam-node-display-template "${title}")
 
 ;; Sandbox section
 
@@ -130,3 +127,7 @@
               (message "Deleted file %s." filename)
               (kill-buffer)))
       (message "Not a file visiting buffer!"))))
+
+(defun my/org-roam-refresh-agenda-list ()
+  (interactive)
+  (setq org-agenda-files (mapcar #'org-roam-node-file (org-roam-node-list))))
