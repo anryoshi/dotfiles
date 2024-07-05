@@ -61,6 +61,15 @@
   :config
   (org-roam-db-autosync-mode))
 
+(use-package ob-racket
+  :after org
+  :config
+  (add-hook 'ob-racket-pre-runtime-library-load-hook
+	      #'ob-racket-raco-make-runtime-library)
+  :straight (ob-racket
+	       :type git :host github :repo "hasu/emacs-ob-racket"
+	       :files ("*.el" "*.rkt")))
+
 (use-package vertico
   :init
   (vertico-mode))
