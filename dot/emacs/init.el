@@ -42,10 +42,6 @@
   (setq seoul256-background 256)
   (load-theme 'seoul256 t))
 
-(use-package anki-editor
-  :defer t
-  :straight (:repo "anki-editor/anki-editor"))
-
 (use-package org-roam
   :custom
   (org-roam-directory
@@ -69,6 +65,10 @@
   :straight (ob-racket
 	       :type git :host github :repo "hasu/emacs-ob-racket"
 	       :files ("*.el" "*.rkt")))
+
+(use-package anki-editor
+  :defer t
+  :straight (:repo "anki-editor/anki-editor"))
 
 (use-package vertico
   :init
