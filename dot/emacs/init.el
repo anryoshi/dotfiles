@@ -90,7 +90,7 @@
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'default-frame-alist
-             '(font . "Sarasa Mono J-14"))
+             '(font . "Sarasa Mono J-18"))
 
 ;; Backup, autosave and lock files configuration
 (setq
