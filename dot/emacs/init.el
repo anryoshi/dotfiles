@@ -1,6 +1,6 @@
 ;; This is temporary way to do local parameterization
 ;; of the configuration file. Until better way invented
-(let ((local-config "~/.emacs.d/local.el"))
+(let ((local-config "~/.config/emacs/local.el"))
   (if (file-exists-p local-config)
       (load-file local-config)))
 
@@ -30,6 +30,11 @@
   (straight-use-package-by-default t))
 
 ;; Used packages
+
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
 
 (use-package paredit)
 
