@@ -83,6 +83,10 @@
 
 (use-package writeroom-mode)
 
+(use-package telega
+  :custom
+  (telega-use-docker t))
+
 ;; Configuration
 
 (tool-bar-mode -1)
@@ -116,6 +120,8 @@
   (make-directory lock-files-directory :parents)
   (setq lock-file-name-transforms
     `((".*" ,lock-files-directory t))))
+
+(setq dired-listing-switches "-D -alv --group-directories-first")
 
 ;; ls-lisp configuration for Windows
 

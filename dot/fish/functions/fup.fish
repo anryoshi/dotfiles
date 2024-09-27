@@ -1,5 +1,6 @@
 function fup \
-    -a file
+    -a file \
+    -d "Search for file recursevly to root from cwd, and cd to this location"
   if test "$file" = ""
     printf "Provide file to search\n" >&2
     return

@@ -2,7 +2,7 @@
 [[link]]
 source = 'vim/vimrc'
 target.windows = '~/vimfiles/vimrc'
-target.unix = '~/.vim/vimrc'
+target.unix = '~/.config/vim/vimrc'
 [[link]]
 source = 'vim/gvimrc'
 target.windows = '~/vimfiles/gvimrc'
@@ -12,14 +12,14 @@ target.windows = '~/vimfiles/gvimrc'
 [[link]]
 source = 'vim/jat'
 target.windows = '~/vimfiles/pack/site/start/jat'
-target.unix = '~/.vim/pack/site/start/jat'
+target.unix = '~/.config/vim/pack/site/start/jat'
 
 # Vocabulary files support
 # TODO: This is temporary
 [[link]]
 source = 'vim/voc'
 target.windows = '~/vimfiles/pack/site/start/voc'
-target.unix = '~/.vim/pack/site/start/voc'
+target.unix = '~/.config/vim/pack/site/start/voc'
 
 [[link]]
 source = 'ranger/rc.conf'
@@ -56,6 +56,8 @@ target.windows = "~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
 [[link]]
 source = 'emacs/init.el'
 target.windows = "~/.emacs.d/init.el"
+target.unix = "~/.config/emacs/init.el"
 [[link]]
 source = 'emacs/early-init.el'
 target.windows = "~/.emacs.d/early-init.el"
+target.unix = "~/.config/emacs/early-init.el"

@@ -19,7 +19,7 @@ endif
 if has("win64") || has("win32") || has("win16")
   let g:vimfolder = "vimfiles"
 else
-  let g:vimfolder = ".vim"
+  let g:vimfolder = ".config/vim"
 endif
 
 let g:plug_plugged_location = expand('~') . '/' . g:vimfolder . '/plugged'
@@ -143,7 +143,8 @@ Plug 'liuchengxu/graphviz.vim'          " Graphviz helper
 Plug 'tyru/open-browser.vim'
 Plug 'aklt/plantuml-syntax'
 Plug 'weirongxu/plantuml-previewer.vim' " PlantUML
-Plug 'webdevel/tabulous'
+" Plug 'webdevel/tabulous'
+Plug 'gcmt/taboo.vim'
 
 Plug 'lervag/vimtex'
 
@@ -171,13 +172,15 @@ set ignorecase
 let mapleader = ","
 let maplocalleader = "\\"
 
-set laststatus=2
+set laststatus=1
 set foldlevel=1
 
 if executable("rg")
     set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
     set grepformat=%f:%l:%c:%m
 endif
+
+set viminfo+=n~/.config/vim/viminfo
 
 " }}}
 
@@ -289,6 +292,28 @@ augroup END
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+
+augroup quickfix
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l* lwindow
+augroup END
+
+let g:fzf_colors =
+\ { 'fg':         ['fg', 'Normal'],
+  \ 'bg':         ['bg', 'Normal'],
+  \ 'preview-bg': ['bg', 'NormalFloat'],
+  \ 'hl':         ['fg', 'Comment'],
+  \ 'fg+':        ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':        ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':        ['fg', 'Statement'],
+  \ 'info':       ['fg', 'PreProc'],
+  \ 'border':     ['fg', 'Ignore'],
+  \ 'prompt':     ['fg', 'Conditional'],
+  \ 'pointer':    ['fg', 'Exception'],
+  \ 'marker':     ['fg', 'Keyword'],
+  \ 'spinner':    ['fg', 'Label'],
+  \ 'header':     ['fg', 'Comment'] }
 
 " }}}
 
