@@ -1,6 +1,8 @@
 ;; This is temporary way to do local parameterization
 ;; of the configuration file. Until better way invented
-(let ((local-config "~/.config/emacs/local.el"))
+(let ((local-config
+        (cond ((eq system-type 'windows-nt) "~/.emacs.d/local.el")
+              (t "~/.config/emacs/local.el"))))
   (if (file-exists-p local-config)
       (load-file local-config)))
 
