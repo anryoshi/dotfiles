@@ -102,3 +102,14 @@ New-Alias -Name "l" Get-ChildItemColor
 
 Invoke-Expression (&scoop-search --hook)
 Invoke-Expression (&starship init powershell)
+
+# https://superuser.com/questions/1756130/change-color-of-powershell-7-get-childitem-result
+
+Set-PSReadLineOption -Colors @{
+    Parameter            = 'Blue'
+    String               = 'DarkMagenta'
+    Operator             = 'DarkCyan'
+    Variable             = 'DarkYellow'
+    Command              = 'DarkGray'
+    Default              = 'Black'
+}
