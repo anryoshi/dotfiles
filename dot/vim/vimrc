@@ -78,7 +78,7 @@ Plug 'junegunn/fzf.vim' " Things you can do with fzf and Vim.
 " Plug 'jonstoler/werewolf.vim' " Autoswitch between day/night theme
 " Plug 'morhetz/gruvbox'
 " Plug 'sjl/badwolf'
-" Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/seoul256.vim'
 " Plug 'ghifarit53/tokyonight-vim'
 " Plug 'plan9-for-vimspace/acme-colors'
 " Plug 'andreasvc/vim-256noir'
@@ -186,8 +186,8 @@ set viminfo+=n~/.config/vim/viminfo
 
 " Setting up colorscheme {{{
 
-set termguicolors
-silent! colorscheme moonfly
+" set termguicolors
+silent! colorscheme seoul256-light
 
 " }}}
 

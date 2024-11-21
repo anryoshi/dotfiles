@@ -4,6 +4,8 @@
   (if (file-exists-p local-config)
       (load-file local-config)))
 
+(setq frame-resize-pixelwise t)
+
 ;; Switching from `master` to `develop` branch
 (setq straight-repository-branch "develop")
 
@@ -83,9 +85,9 @@
 
 (use-package writeroom-mode)
 
-(use-package telega
-  :custom
-  (telega-use-docker t))
+(use-package telega)
+
+(use-package perfect-margin)
 
 ;; Configuration
 
@@ -121,7 +123,13 @@
   (setq lock-file-name-transforms
     `((".*" ,lock-files-directory t))))
 
+(if (equal system-type 'darwin)
+  (progn (setq insert-directory-program "gls")))
 (setq dired-listing-switches "-D -alv --group-directories-first")
+
+(when (and (eq system-type 'darwin) (display-graphic-p))
+  (setq mac-option-modifier nil
+        mac-command-modifier 'meta))
 
 ;; ls-lisp configuration for Windows
 

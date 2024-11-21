@@ -30,12 +30,6 @@ target.unix = '~/.config/ranger/rc.conf'
 source = 'fish/config.fish'
 target.unix = '~/.config/fish/config.fish'
 [[link]]
-source = 'fish/functions/e.fish'
-target.unix = '~/.config/fish/functions/e.fish'
-[[link]]
-source = 'fish/functions/et.fish'
-target.unix = '~/.config/fish/functions/et.fish'
-[[link]]
 source = 'fish/functions/vims.fish'
 target.unix = '~/.config/fish/functions/vims.fish'
 [[link]]
