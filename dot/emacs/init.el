@@ -1,21 +1,111 @@
-;; This is temporary way to do local parameterization
-;; of the configuration file. Until better way invented
-(let ((local-config
-        (cond ((eq system-type 'windows-nt) "~/.emacs.d/local.el")
-              (t "~/.config/emacs/local.el"))))
-  (if (file-exists-p local-config)
-      (load-file local-config)))
+;; Anton Rybakov init.el file
 
+;; Common configuration functions
+(defun ar-read-whole-file (path)
+  (with-temp-buffer
+    (insert-file-contents path)
+    (buffer-string)))
+
+(defun ar-read-elisp-file (path)
+  (read (ar-read-whole-file path)))
+
+(defun ar-user-home-dir ()
+  (if (eq system-type 'windows-nt)
+    (getenv "USERPROFILE")
+    (getenv "HOME")))
+
+(defun ar-org-roam-directory ()
+  (file-name-concat (ar-user-home-dir) ".org_roam"))
+
+(defun ar-org-roam-capture-templates ()
+  (ar-read-elisp-file (file-name-concat (ar-org-roam-directory) ".capture_templates.el")))
+
+(defun ar-delete-file-and-buffer ()
+  "Kill the current buffer and deletes the file it is visiting."
+  (interactive)
+  (let ((filename (buffer-file-name)))
+    (if filename
+        (if (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
+            (progn
+              (delete-file filename)
+              (message "Deleted file %s." filename)
+              (kill-buffer)))
+      (message "Not a file visiting buffer!"))))
+
+;; Global hotkeys
+(global-set-key (kbd "C-c f i") (lambda () (interactive) (find-file user-init-file)))
+
+;; Emacs built-in variables & configuration
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(desktop-save-mode 1)
+
+(setq inhibit-startup-screen t)
 (setq frame-resize-pixelwise t)
 
-;; Switching from `master` to `develop` branch
-(setq straight-repository-branch "develop")
+(setq-default indent-tabs-mode nil)
 
-;; Install straight.el
+(add-to-list 'default-frame-alist
+             '(font . "Sarasa Mono J-24")) ;; TODO: Make this font size host dependent
+
+(setq
+   backup-by-copying t
+   backup-directory-alist
+    '(("." . "~/.local/state/emacs/backups"))
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)
+
+(let ((save-files-directory "~/.local/state/emacs/autosave/"))
+  (make-directory save-files-directory :parents)
+  (setq auto-save-file-name-transforms
+    `((".*" ,save-files-directory t))))
+
+(let ((lock-files-directory "~/.local/state/emacs/locks/"))
+  (make-directory lock-files-directory :parents)
+  (setq lock-file-name-transforms
+    `((".*" ,lock-files-directory t))))
+
+(if (equal system-type 'darwin)
+    (progn (setq insert-directory-program "gls"))) ;; TODO: Check that gls is installed
+(setq dired-listing-switches "-D -alv --group-directories-first")
+
+(if (equal system-type 'windows-nt)
+  (progn (require 'ls-lisp)
+         (setq ls-lisp-dirs-first t)
+         (setq ls-lisp-use-string-collate nil)
+         (setq ls-lisp-verbosity nil)))
+
+(when (and (eq system-type 'darwin) (display-graphic-p))
+  (setq mac-option-modifier nil
+        mac-command-modifier 'meta))
+
+(setq org-confirm-babel-evaluate nil)
+
+(defun ar-org-babel-to-buffer ()
+  "A function to efficiently feed babel code block result to a separate buffer"
+  (interactive)
+  (save-selected-window
+    (org-open-at-point)
+    (org-babel-remove-result)))
+
+(defun ar-org-mode-config ()
+  "To use with `org-mode-hook'"
+  (local-set-key (kbd "C-c C-`") 'ar-org-babel-to-buffer))
+
+(add-hook 'org-mode-hook 'ar-org-mode-config)
+
+;; Bootstraping straight.el
+(setq straight-repository-branch "develop")
 (defvar bootstrap-version)
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
@@ -34,7 +124,6 @@
   (straight-use-package-by-default t))
 
 ;; Used packages
-
 (use-package exec-path-from-shell
   :config
   (when (memq window-system '(mac ns x))
@@ -53,12 +142,9 @@
 
 (use-package org-roam
   :custom
-  (org-roam-directory
-   (if (boundp 'anryoshi-org-roam-directory)
-       (file-truename anryoshi-org-roam-directory)))
-  (org-roam-capture-templates
-   (if (boundp 'anryoshi-org-roam-capture-templates)
-       anryoshi-org-roam-capture-templates))
+  (org-roam-directory (ar-org-roam-directory))
+  (org-roam-capture-templates (ar-org-roam-capture-templates))
+  (org-roam-node-display-template "${title}")
   :bind
   (("C-c n l" . org-roam-buffer-toggle)
    ("C-c n f" . org-roam-node-find)
@@ -90,74 +176,3 @@
 (use-package telega)
 
 (use-package perfect-margin)
-
-;; Configuration
-
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(desktop-save-mode 1)
-
-(setq inhibit-startup-screen t)
-
-(setq-default indent-tabs-mode nil)
-
-(add-to-list 'default-frame-alist
-             '(font . "Sarasa Mono J-18"))
-
-;; Backup, autosave and lock files configuration
-(setq
-   backup-by-copying t
-   backup-directory-alist
-    '(("." . "~/.local/state/emacs/backups"))
-   delete-old-versions t
-   kept-new-versions 6
-   kept-old-versions 2
-   version-control t)
-
-(let ((save-files-directory "~/.local/state/emacs/autosave/"))
-  (make-directory save-files-directory :parents)
-  (setq auto-save-file-name-transforms
-    `((".*" ,save-files-directory t))))
-
-(let ((lock-files-directory "~/.local/state/emacs/locks/"))
-  (make-directory lock-files-directory :parents)
-  (setq lock-file-name-transforms
-    `((".*" ,lock-files-directory t))))
-
-(if (equal system-type 'darwin)
-  (progn (setq insert-directory-program "gls")))
-(setq dired-listing-switches "-D -alv --group-directories-first")
-
-(when (and (eq system-type 'darwin) (display-graphic-p))
-  (setq mac-option-modifier nil
-        mac-command-modifier 'meta))
-
-;; ls-lisp configuration for Windows
-
-(require 'ls-lisp)
-
-(setq ls-lisp-dirs-first t)
-(setq ls-lisp-use-string-collate nil)
-(setq ls-lisp-verbosity nil)
-
-;; Org-roam
-(setq org-roam-node-display-template "${title}")
-
-;; Sandbox section
-
-(defun delete-file-and-buffer ()
-  "Kill the current buffer and deletes the file it is visiting."
-  (interactive)
-  (let ((filename (buffer-file-name)))
-    (if filename
-        (if (y-or-n-p (concat "Do you really want to delete file " filename " ?"))
-            (progn
-              (delete-file filename)
-              (message "Deleted file %s." filename)
-              (kill-buffer)))
-      (message "Not a file visiting buffer!"))))
-
-(defun my/org-roam-refresh-agenda-list ()
-  (interactive)
-  (setq org-agenda-files (mapcar #'org-roam-node-file (org-roam-node-list))))
