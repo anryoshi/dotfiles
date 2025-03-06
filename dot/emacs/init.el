@@ -173,6 +173,8 @@
 
 (use-package writeroom-mode)
 
+(use-package focus)
+
 (use-package telega)
 
 (use-package perfect-margin)
