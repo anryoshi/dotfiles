@@ -184,6 +184,8 @@
 
 (use-package focus)
 
-(use-package telega)
+(use-package telega
+  :custom
+  (telega-use-docker t))
 
 (use-package perfect-margin)
