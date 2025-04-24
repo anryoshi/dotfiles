@@ -123,7 +123,7 @@ Plug 'cespare/vim-toml'       " TOML
 
 " Programming languages plugins
 Plug 'rust-lang/rust.vim'       " Rust file detection, syntax and etc.
-Plug 'wlangstroth/vim-racket'   " Racket file detection, syntax and etc.
+Plug 'benknoble/vim-racket'     " Racket file detection, syntax and etc.
 Plug 'khaveesh/vim-fish-syntax' " Fish file detection, syntax and etc.
 Plug 'PProvost/vim-ps1'         " Powershell file detection, syntax and etc.
 
