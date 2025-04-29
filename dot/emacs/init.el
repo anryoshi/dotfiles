@@ -32,6 +32,12 @@
               (kill-buffer)))
       (message "Not a file visiting buffer!"))))
 
+(defun ar-dired-find-file ()
+  "Find a file in the current dired directory"
+  (interactive)
+  (let ((default-directory (dired-current-directory)))
+    (find-file (read-file-name "Find file:"))))
+
 ;; Global hotkeys
 (global-set-key (kbd "C-c f i") (lambda () (interactive) (find-file user-init-file)))
 
@@ -95,7 +101,12 @@
   "To use with `org-mode-hook'"
   (local-set-key (kbd "C-c C-`") 'ar-org-babel-to-buffer))
 
+(defun ar-dired-mode-config ()
+  "To use with `dired-mode-hook'"
+  (local-set-key (kbd "C-x M-f") 'ar-dired-find-file))
+
 (add-hook 'org-mode-hook 'ar-org-mode-config)
+(add-hook 'dired-mode-hook 'ar-dired-mode-config)
 
 ;; Bootstraping straight.el
 (setq straight-repository-branch "develop")
@@ -118,6 +129,9 @@
 ;; Install use-package
 (straight-use-package 'use-package)
 
+;; Configure use-package
+(setq use-package-always-defer t)
+
 ;; Configure use-package to use straight.el by default
 (use-package straight
   :custom
@@ -128,6 +142,8 @@
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
+
+(use-package multiple-cursors)
 
 (use-package paredit)
 
