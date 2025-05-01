@@ -139,6 +139,7 @@
 
 ;; Used packages
 (use-package exec-path-from-shell
+  :demand t
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize)))
@@ -167,6 +168,8 @@
    ("C-c n i" . org-roam-node-insert))
   :config
   (org-roam-db-autosync-mode))
+
+(use-package org-pomodoro)
 
 (use-package ob-racket
   :after org
