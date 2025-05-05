@@ -53,7 +53,7 @@ Plug 'tpope/vim-sleuth'      " Heuristically set indent options and encoding
 Plug 'tpope/vim-speeddating' " Easily increment dates, times, and more
 Plug 'tpope/vim-eunuch'      " Vim sugar for the UNIX shell commands
 Plug 'tpope/vim-obsession'   " Continuously updated session files
-Plug 'tpope/vim-vinegar'     " ...together like oil and vinegar
+" Plug 'tpope/vim-vinegar'     " ...together like oil and vinegar
 
 " Additional text objects
 Plug 'kana/vim-textobj-user'   " Create your own text objects
@@ -150,6 +150,12 @@ Plug 'lervag/vimtex'
 
 Plug 'rickhowe/spotdiff.vim'
 
+Plug 'chrisbra/Colorizer'
+
+Plug 'NoahTheDuke/vim-just'
+
+Plug 'justinmk/vim-dirvish'
+
 call plug#end()
 " }}}
 
@@ -162,7 +168,7 @@ set nowrap
 set number
 set splitbelow
 set splitright
-set colorcolumn=80
+" set colorcolumn=80
 
 set incsearch
 set hlsearch
@@ -172,7 +178,7 @@ set ignorecase
 let mapleader = ","
 let maplocalleader = "\\"
 
-set laststatus=1
+set laststatus=2
 set foldlevel=1
 
 if executable("rg")
@@ -236,6 +242,9 @@ let g:dispatch_no_tmux_make = 1
 
 " vimtex
 let g:vimtex_view_method = 'sioyek'
+
+" fzf.vim
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " }}}
 
