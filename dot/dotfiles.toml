@@ -6,6 +6,7 @@ target.unix = '~/.config/vim/vimrc'
 [[link]]
 source = 'vim/gvimrc'
 target.windows = '~/vimfiles/gvimrc'
+target.unix = '~/.config/vim/gvimrc'
 
 # Just a Text Vim filetype plugin
 # TODO: Should be separated to other repository
