@@ -39,6 +39,8 @@
     (find-file (read-file-name "Find file:"))))
 
 ;; Global hotkeys
+(global-set-key (kbd "C-S-p") (lambda () (interactive) (previous-line 4)))
+(global-set-key (kbd "C-S-n") (lambda () (interactive) (next-line 4)))
 (global-set-key (kbd "C-c f i") (lambda () (interactive) (find-file user-init-file)))
 
 ;; Emacs built-in variables & configuration
@@ -53,7 +55,7 @@
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'default-frame-alist
-             '(font . "Sarasa Mono J-24")) ;; TODO: Make this font size host dependent
+             '(font . "Sarasa Mono J-18")) ;; TODO: Make this font size host dependent
 
 (setq
    backup-by-copying t
