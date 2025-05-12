@@ -31,11 +31,14 @@ target.unix = '~/.config/ranger/rc.conf'
 source = 'fish/config.fish'
 target.unix = '~/.config/fish/config.fish'
 [[link]]
+source = 'fish/functions/fish_prompt.fish'
+target.unix = '~/.config/fish/functions/fish_prompt.fish'
+[[link]]
 source = 'fish/functions/vims.fish'
 target.unix = '~/.config/fish/functions/vims.fish'
 [[link]]
-source = 'fish/completions/vims.fish'
-target.unix = '~/.config/fish/completions/vims.fish'
+source = 'fish/functions/l.fish'
+target.unix = '~/.config/fish/functions/l.fish'
 
 # tmux configuration
 [[link]]

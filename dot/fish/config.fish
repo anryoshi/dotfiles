@@ -18,19 +18,19 @@ end
 # TODO: this is recreation of the pyenv process for cleaning
 #       already set pathes by the parent shell processes
 #       create review for the rbenv with fix for this
-remove_from_path "/home/$USER/.rbenv/shims"
-rbenv init - | source
+if type -q rbenv
+  remove_from_path "/home/$USER/.rbenv/shims"
+  rbenv init - | source
+end
 
 # pyenv
-pyenv init - | source
+if type -q pyenv
+  pyenv init - | source
+end
 
 # homebrew .bin to PATH
 readd_on_top_of_path "$HOME/.cargo/bin"
 readd_on_top_of_path "$HOME/.bin"
 readd_on_top_of_path "$HOME/.local/bin"
 
-# starship
-starship init fish --print-full-init | source
-
 set -gx EDITOR vim
-
