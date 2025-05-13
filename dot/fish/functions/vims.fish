@@ -52,9 +52,11 @@ function vims \
   set -ql _flag_v
   and set -g __verbose_enabled true
 
-  set -l sessions_dir "$HOME/.local/state/vim/sessions"
+  set -f sessions_dir "$HOME/.local/state/vim/sessions"
   if set -ql _flag_l
-    ls $sessions_dir | sed 's/.vim//g'
+    for s in (ls $sessions_dir | sed 's/.vim//g')
+      printf "%s :: %s\n" $s "$sessions_dir/$s.vim"
+    end
     return 0
   end
 

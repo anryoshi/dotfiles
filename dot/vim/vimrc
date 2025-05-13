@@ -54,6 +54,7 @@ Plug 'tpope/vim-speeddating' " Easily increment dates, times, and more
 Plug 'tpope/vim-eunuch'      " Vim sugar for the UNIX shell commands
 Plug 'tpope/vim-obsession'   " Continuously updated session files
 " Plug 'tpope/vim-vinegar'     " ...together like oil and vinegar
+Plug 'tpope/vim-rsi'         " Readline like mappings
 
 " Additional text objects
 Plug 'kana/vim-textobj-user'   " Create your own text objects
@@ -182,7 +183,7 @@ set laststatus=2
 set foldlevel=1
 
 if executable("rg")
-    set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
+    set grepprg=rg\ --vimgrep\ --smart-case\ -uu
     set grepformat=%f:%l:%c:%m
 endif
 
