@@ -34,6 +34,9 @@ target.unix = '~/.config/fish/config.fish'
 source = 'fish/functions/fish_prompt.fish'
 target.unix = '~/.config/fish/functions/fish_prompt.fish'
 [[link]]
+source = 'fish/functions/fish_greeting.fish'
+target.unix = '~/.config/fish/functions/fish_greeting.fish'
+[[link]]
 source = 'fish/functions/vims.fish'
 target.unix = '~/.config/fish/functions/vims.fish'
 [[link]]

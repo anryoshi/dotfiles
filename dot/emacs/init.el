@@ -39,8 +39,8 @@
     (find-file (read-file-name "Find file:"))))
 
 ;; Global hotkeys
-(global-set-key (kbd "C-S-p") (lambda () (interactive) (previous-line 4)))
-(global-set-key (kbd "C-S-n") (lambda () (interactive) (next-line 4)))
+(global-set-key (kbd "M-p") (lambda () (interactive) (previous-line 4)))
+(global-set-key (kbd "M-n") (lambda () (interactive) (next-line 4)))
 (global-set-key (kbd "C-c f i") (lambda () (interactive) (find-file user-init-file)))
 
 ;; Emacs built-in variables & configuration

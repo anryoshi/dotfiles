@@ -15,7 +15,7 @@ function fish_prompt
     set -f separator_color green
     test $previous_status -ne 0 
     and set -f separator_color red
-    set -f separator_str (set_color $separator_color)"❯ "(set_color normal)
+    set -f separator_str (set_color $separator_color)"λ "(set_color normal)
 
     set -g __fish_git_prompt_show_informative_status 1
     set -g __fish_git_prompt_describe_style branch
