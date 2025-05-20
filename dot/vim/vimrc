@@ -145,7 +145,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'aklt/plantuml-syntax'
 Plug 'weirongxu/plantuml-previewer.vim' " PlantUML
 " Plug 'webdevel/tabulous'
-Plug 'gcmt/taboo.vim'
+" Plug 'gcmt/taboo.vim'
 
 Plug 'lervag/vimtex'
 
@@ -324,6 +324,55 @@ let g:fzf_colors =
   \ 'marker':     ['fg', 'Keyword'],
   \ 'spinner':    ['fg', 'Label'],
   \ 'header':     ['fg', 'Comment'] }
+
+set showtabline=1
+set tabline=%!MyTabLine()
+highlight TabLine cterm=NONE gui=NONE
+
+function! MyTabLine()
+  let s = ''
+  for i in range(tabpagenr('$'))
+    let tabnr = i + 1
+
+    " Get tab-local current directory
+    let cwd = fnamemodify(getcwd(-1, tabnr), ':t')  " Last component of path
+
+    " Choose highlight group
+    if tabnr == tabpagenr()
+      let s .= '%#TabLineSel#'
+    else
+      let s .= '%#TabLine#'
+    endif
+
+    " Format: "1:folder"
+    let s .= '%' . tabnr . 'T'
+    let s .= ' ' . tabnr . ':' . cwd . ' '
+    let s .= '%T'
+  endfor
+  let s .= '%#TabLineFill#'
+  return s
+endfunction
+
+def! DirvishSort()
+  var lines = getline(1, '$')
+  var dirs = []
+  var files = []
+
+  for line in lines
+    if isdirectory(line)
+      add(dirs, line)
+    else
+      add(files, line)
+    endif
+  endfor
+
+  sort(dirs)
+  sort(files)
+
+  setline(1, dirs + files)
+enddef
+
+let g:dirvish_mode = 'call DirvishSort()'
 
 " }}}
 
