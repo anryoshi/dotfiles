@@ -20,7 +20,7 @@ function configure_environment_manager \
   set -f env_root (string upper $env_name)_ROOT
   set -gx $env_root "$HOME/.local/env/$env_name"
   type -q $env_name
-  and mkdir -p $env_root
+  and mkdir -p $$env_root
   if test -d $$env_root
     type -q $env_name
     or readd_on_top_of_path "$$env_root/bin"
