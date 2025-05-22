@@ -189,6 +189,10 @@ endif
 
 set viminfo+=n~/.config/vim/viminfo
 
+set undodir=~/.local/state/vim/undo//
+set backupdir=~/.local/state/vim/backup//
+set directory=~/.local/state/vim/swp//
+
 " }}}
 
 " Setting up colorscheme {{{
