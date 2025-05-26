@@ -1,6 +1,6 @@
 function l \
     --description 'Meaningful ls defaults'
-  set -f gnu_ls_options -AFGhlv --time-style=long-iso --group-directories-first
+  set -f gnu_ls_options --color=always -AFGhlv --time-style=long-iso --group-directories-first
   switch (uname)
     case "Linux"
       ls $gnu_ls_options $argv

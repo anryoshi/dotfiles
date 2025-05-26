@@ -189,8 +189,18 @@ endif
 
 set viminfo+=n~/.config/vim/viminfo
 
+function! EnsureDir(dir) abort
+  let l:target = expand(a:dir)
+  if !isdirectory(l:target)
+    call mkdir(l:target, 'p')
+  endif
+endfunction
+
+call EnsureDir("~/.local/state/vim/undo")
 set undodir=~/.local/state/vim/undo//
+call EnsureDir("~/.local/state/vim/backup")
 set backupdir=~/.local/state/vim/backup//
+call EnsureDir("~/.local/state/vim/swp")
 set directory=~/.local/state/vim/swp//
 
 " }}}
