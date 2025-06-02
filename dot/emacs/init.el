@@ -32,6 +32,14 @@
               (kill-buffer)))
       (message "Not a file visiting buffer!"))))
 
+(defun ar-kill-nonexistent-file-buffers ()
+  "Kill all file-visiting buffers whose files no longer exist."
+  (interactive)
+  (dolist (buf (buffer-list))
+    (let ((filename (buffer-file-name buf)))
+      (when (and filename (not (file-exists-p filename)))
+        (kill-buffer buf)))))
+
 (defun ar-dired-find-file ()
   "Find a file in the current dired directory"
   (interactive)
