@@ -52,5 +52,5 @@ readd_on_top_of_path "$HOME/.local/bin"
 
 set -gx EDITOR vim
 
-test -q vivid
+type -q vivid
 and set -gx LS_COLORS (vivid generate modus-operandi)
