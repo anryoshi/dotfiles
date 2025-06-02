@@ -84,6 +84,7 @@ Plug 'junegunn/seoul256.vim'
 " Plug 'plan9-for-vimspace/acme-colors'
 " Plug 'andreasvc/vim-256noir'
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'c9rgreen/vim-colors-modus'
 
 " VCS support plugins
 Plug 'tpope/vim-fugitive'     " So awesome, it should be illegal
@@ -207,8 +208,9 @@ set directory=~/.local/state/vim/swp//
 
 " Setting up colorscheme {{{
 
-" set termguicolors
-silent! colorscheme seoul256-light
+set termguicolors
+silent! colorscheme modus
+set background=light
 
 " }}}
 

@@ -55,7 +55,7 @@
 (setq-default indent-tabs-mode nil)
 
 (add-to-list 'default-frame-alist
-             '(font . "Sarasa Mono J-18")) ;; TODO: Make this font size host dependent
+             '(font . "Sarasa Mono J-15")) ;; TODO: Make this font size host dependent
 
 (setq
    backup-by-copying t
@@ -155,9 +155,12 @@
 (use-package sicp)
 
 (use-package seoul256-theme
+   :init
+   (setq seoul256-background 256))
+
+(use-package modus-themes
   :init
-  (setq seoul256-background 256)
-  (load-theme 'seoul256 t))
+  (load-theme 'modus-operandi t))
 
 (use-package org-roam
   :custom
