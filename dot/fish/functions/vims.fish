@@ -64,12 +64,16 @@ function vims \
   set -ql _flag_nogui
   and set -f vim_client vim
 
+  set -f is_new_server true
   set -f serverlist (vim --serverlist)
 
   if set -ql _flag_servername[1]
     set -f servername $_flag_servername[1]
+    contains $servername $servelist
+    and set -f is_new_server false
   else if test (count $serverlist) -eq 1
     set -f servername $serverlist[1]
+    set -f is_new_server false
   else if test (count $serverlist) -eq 0
     set -f servername MAIN
   else
@@ -97,8 +101,11 @@ function vims \
   test -f $session_file
   and set -f session_arg -S $session_file
 
-  __verbose "Starting server %s with session %s\n" $servername $session
-  $vim_client --servername $servername $session_arg
+  if $is_new_server
+    __verbose "Starting server %s with session %s\n" $servername $session
+    $vim_client --servername $servername $session_arg
+  end
+
   if test (count $argv) -gt 0
     __verbose "Sending %s to server %s\n" $argv $servername
     $vim_client --servername $servername --remote $argv
