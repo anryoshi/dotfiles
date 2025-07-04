@@ -99,6 +99,7 @@
         mac-command-modifier 'meta))
 
 (setq org-confirm-babel-evaluate nil)
+(setq org-tags-column 0)
 
 (defun ar-org-babel-to-buffer ()
   "A function to efficiently feed babel code block result to a separate buffer"
@@ -167,6 +168,9 @@
    (setq seoul256-background 256))
 
 (use-package modus-themes
+  :custom
+  (modus-themes-common-palette-overrides
+   '((fg-heading-2 magenta-cooler)))
   :init
   (load-theme 'modus-operandi t))
 
