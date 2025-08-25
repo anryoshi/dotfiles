@@ -1,0 +1,48 @@
+vim9script
+# vim: set foldmethod=marker foldlevel=0 nomodeline:
+# anryoshi's vimrc file for Vim 9
+
+import autoload "kiso.vim"
+import autoload "hako.vim"
+
+# Load defaults.vim  {{{
+unlet! g:skip_defaults_vim | source $VIMRUNTIME/defaults.vim
+# }}}
+
+# Configure plugins {{{
+
+hako.Begin()
+
+Pack 'k-takata/minpac', {'type': 'opt'}
+
+# Plugins for Vimscript
+Pack 'tpope/vim-scriptease' # A Vim plugin for Vim plugins
+Pack 'junegunn/vader.vim'   # Testingg framework for Vimscript
+Pack 'kana/vim-vspec'       # Another testing frameworka for Vimscript
+
+# Core plugins
+Pack 'tpope/vim-sensible'    # Defaults everyone can agree on
+Pack 'tpope/vim-unimpaired'  # Complementary pairs of mappings
+Pack 'tpope/vim-surround'    # It is all about 'surroundings'
+Pack 'tpope/vim-commentary'  # Comments staff out. Oh, and it uncomments, too.
+Pack 'tpope/vim-sleuth'      # Heuristically set indent options and encoding
+Pack 'tpope/vim-speeddating' # Easily increment dates, times, and more
+Pack 'tpope/vim-eunuch'      # Vim sugar for the UNIX shell commands
+Pack 'tpope/vim-obsession'   # Continuously updated session files
+Pack 'tpope/vim-vinegar'     # ...together like oil and vinegar
+Pack 'tpope/vim-rsi'         # Readline like mappings
+
+# Additional text objects
+Pack 'kana/vim-textobj-user'   # Create your own text objects
+Pack 'kana/vim-textobj-entire' # Text objects for entire buffer
+
+# Better text editing are...
+Pack 'godlygeek/tabular'          # ...align anything by symbol
+Pack 'dhruvasagar/vim-table-mode' # ...neat tables as you type
+
+
+
+hako.End()
+
+# }}}
+
