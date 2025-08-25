@@ -72,44 +72,4 @@ function Set-CompilerEnvironment ([Compiler]$compenv = [Compiler]::msvc) {
     Write-CompilerEnvironment
 }
 
-function Unlock-Vault ([string]$Path, [bool]$Silent = $false) {
-    Get-ChildItem -Path $Path -File -Include '*.asc' -Recurse `
-        | Foreach-Object {
-            $EncryptedFile = $_.FullName
-            $DecryptedFile = Join-Path $_.DirectoryName $_.BaseName
-            If (-Not $Silent) {
-                Write-Output "Decrypting`n`t<- $EncryptedFile`n`t-> $DecryptedFile"
-            }
-            gpg --yes --decrypt --output $DecryptedFile $EncryptedFile
-          }
-}
-
-function Lock-Vault ([string]$Path, [bool]$Silent = $false) {
-    Get-ChildItem -Path $Path -File -Exclude '*.asc' -Recurse `
-        | Foreach-Object {
-            $DecryptedFile = $_.FullName
-            $EncryptedFile = $DecryptedFile + '.asc'
-            If (-Not $Silent) {
-                Write-Output "Encrypting`n`t<- $DecryptedFile`n`t-> $EncryptedFile"
-            }
-            gpg --yes --encrypt --armor --recipient anryoshi@gmail.com --output $EncryptedFile $DecryptedFile
-          }
-}
-
-Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
-
-New-Alias -Name "l" Get-ChildItemColor
-
 Invoke-Expression (&scoop-search --hook)
-Invoke-Expression (&starship init powershell)
-
-# https://superuser.com/questions/1756130/change-color-of-powershell-7-get-childitem-result
-Set-PSReadLineOption -Colors @{
-    Parameter            = 'Blue'
-    String               = 'DarkMagenta'
-    Operator             = 'DarkCyan'
-    Variable             = 'DarkYellow'
-    Command              = 'DarkGray'
-    InlinePrediction     = 'DarkYellow'
-    Default              = 'Black'
-}
