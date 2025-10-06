@@ -1,6 +1,11 @@
 vim9script
 # vim: set foldmethod=marker foldlevel=0 nomodeline:
 # anryoshi's vimrc file for Vim 9
+# External dependencies:
+#   - git
+#   - fd
+#   - ripgrep
+#   - fzf
 
 import autoload "kiso.vim"
 import autoload "hako.vim"
@@ -39,8 +44,6 @@ Pack 'kana/vim-textobj-entire' # Text objects for entire buffer
 # Better text editing are...
 Pack 'godlygeek/tabular'          # ...align anything by symbol
 Pack 'dhruvasagar/vim-table-mode' # ...neat tables as you type
-
-
 
 hako.End()
 
