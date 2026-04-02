@@ -1,31 +1,45 @@
-# Vim
-# [[link]]
-# source = 'vim/vimrc'
-# target.windows = '~/vimfiles/vimrc'
-# target.unix = '~/.config/vim/vimrc'
-# [[link]]
-# source = 'vim/gvimrc'
-# target.windows = '~/vimfiles/gvimrc'
-# target.unix = '~/.config/vim/gvimrc'
+[meta]
+default_tags = ['vim_saishin']
 
-# Vim9 
+# Vim Juurai (従来)
 [[link]]
-source = 'vim9/vimrc'
+source = 'vim/juurai/vimrc'
+target.windows = '~/vimfiles/vimrc'
+target.unix = '~/.config/vim/vimrc'
+tag = 'vim_jurai'
+[[link]]
+source = 'vim/juurai/gvimrc'
+target.windows = '~/vimfiles/gvimrc'
+target.unix = '~/.config/vim/gvimrc'
+tag = 'vim_juurai'
+
+# Vim Saishin (最新)
+[[link]]
+source = 'vim/saishin/vimrc'
 target.unix = '~/.config/vim/vimrc'
 target.windows = '~/vimfiles/vimrc'
+tag = 'vim_saishin'
 [[link]]
-source = 'vim9/kiso.vim'
+source = 'vim/saishin/gvimrc'
+target.unix = '~/.config/vim/gvimrc'
+target.windows = '~/vimfiles/gvimrc'
+tag = 'vim_saishin'
+[[link]]
+source = 'vim/saishin/kiso.vim'
 target.unix = '~/.config/vim/autoload/kiso.vim'
 target.windows = '~/vimfiles/autoload/kiso.vim'
+tag = 'vim_saishin'
 [[link]]
-source = 'vim9/hako.vim'
+source = 'vim/saishin/hako.vim'
 target.unix = '~/.config/vim/autoload/hako.vim'
 target.windows = '~/vimfiles/autoload/hako.vim'
+tag = 'vim_saishin'
 
-# ranger
+# Emacs
 [[link]]
-source = 'ranger/rc.conf'
-target.unix = '~/.config/ranger/rc.conf'
+source = 'emacs/init.el'
+target.unix = "~/.config/emacs/init.el"
+target.windows = "~/.emacs.d/init.el"
 
 # fish shell
 [[link]]
@@ -49,13 +63,12 @@ target.unix = '~/.config/fish/functions/l.fish'
 source = 'tmux/tmux.conf'
 target.unix = '~/.config/tmux/tmux.conf'
 
+# ranger
+[[link]]
+source = 'ranger/rc.conf'
+target.unix = '~/.config/ranger/rc.conf'
+
 # PowerShell
 [[link]]
 source = 'powershell/Microsoft.PowerShell_profile.ps1'
 target.windows = "~/Documents/PowerShell/Microsoft.PowerShell_profile.ps1"
-
-# Emacs
-[[link]]
-source = 'emacs/init.el'
-target.unix = "~/.config/emacs/init.el"
-target.windows = "~/.emacs.d/init.el"
