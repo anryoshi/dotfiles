@@ -12,7 +12,8 @@ enddef
 
 def Outdated(): bool
   kiso.EnsureDir(kiso.GetStateDir())
-  return kiso.CompareAndSetTimestampFile(kiso.GetStateDir() .. '/minpac_timestamp', 60 * 60 * 24)
+  # TODO: make this period configurable
+  return kiso.CompareAndSetTimestampFile(kiso.GetStateDir() .. '/minpac_timestamp', 60 * 60 * 24 * 7)
 enddef
 
 def Init()
@@ -31,7 +32,9 @@ enddef
 
 def RegisterCommands()
   command! -bar -nargs=+ Pack AddPlugin(<args>)
-  command! -bar HakoUpdate Init() | minpac#update()
+  command! -bar HakoUpdate Init() | minpac#update('', {
+      do: (_, _, _) => execute('source ' .. fnameescape($MYVIMRC))
+    })
 enddef
 
 export def Begin()
@@ -46,5 +49,3 @@ export def End()
     HakoUpdate
   endif
 enddef
-
-

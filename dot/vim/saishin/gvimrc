@@ -1,0 +1,29 @@
+vim9script
+# vim: set foldmethod=marker foldlevel=0 nomodeline:
+# Anton Rybakov gvimrc file
+# This configuraion used mostly on Windows
+
+import autoload "kiso.vim"
+
+# TODO: for some reason GVim supports only fonts that marked as monospaced
+if has("win64") || has("win32") || has("win16")
+  set guifont=Sarasa_Fixed_J:h14
+else
+  set guifont=Sarasa\ Fixed\ J\ 14
+endif
+
+# Disable all bars and etc.
+set guioptions=
+
+# Disable all bells - audio and visual
+set noerrorbells
+set vb t_vb=
+
+# Use mouse in command line mode that acts like mouse in terminal
+set mouse=c
+
+# Local gvimrc
+var local_gvimrc = kiso.GetVimDir() .. '/gvimrc_local'
+if filereadable(local_gvimrc)
+  execute 'source' local_gvimrc
+endif

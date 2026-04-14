@@ -5,7 +5,7 @@ vim9script
 #   - git
 #   - fd
 #   - ripgrep
-#   - fzf
+#   - TBD clap backend
 
 import autoload "kiso.vim"
 import autoload "hako.vim"
@@ -20,32 +20,147 @@ hako.Begin()
 
 Pack 'k-takata/minpac', {'type': 'opt'}
 
-# Plugins for Vimscript
-Pack 'tpope/vim-scriptease' # A Vim plugin for Vim plugins
-Pack 'junegunn/vader.vim'   # Testingg framework for Vimscript
-Pack 'kana/vim-vspec'       # Another testing frameworka for Vimscript
+Pack 'tpope/vim-sensible'      # Defaults everyone can agree on
+Pack 'tpope/vim-scriptease'    # A Vim plugin for Vim plugins
+Pack 'tpope/vim-repeat'        # Remaps . in a way that plugins can tap into it
 
-# Core plugins
-Pack 'tpope/vim-sensible'    # Defaults everyone can agree on
-Pack 'tpope/vim-unimpaired'  # Complementary pairs of mappings
-Pack 'tpope/vim-surround'    # It is all about 'surroundings'
-Pack 'tpope/vim-commentary'  # Comments staff out. Oh, and it uncomments, too.
-Pack 'tpope/vim-sleuth'      # Heuristically set indent options and encoding
-Pack 'tpope/vim-speeddating' # Easily increment dates, times, and more
-Pack 'tpope/vim-eunuch'      # Vim sugar for the UNIX shell commands
-Pack 'tpope/vim-obsession'   # Continuously updated session files
-Pack 'tpope/vim-vinegar'     # ...together like oil and vinegar
-Pack 'tpope/vim-rsi'         # Readline like mappings
+Pack 'tpope/vim-surround'      # It is all about 'surroundings'
+Pack 'tpope/vim-commentary'    # Comments staff out. Oh, and it uncomments, too.
+Pack 'tpope/vim-unimpaired'    # Complementary pairs of mappings
+Pack 'tpope/vim-endwise'       # Wisely add
+Pack 'tpope/vim-speeddating'   # Easily increment dates, times, and more
+Pack 'tpope/vim-characterize'  # Provides Unicode character metadata
+Pack 'tpope/vim-rsi'           # Readline like mappings
+Pack 'tpope/vim-sleuth'        # Heuristically set indent options and encoding
+
+Pack 'tpope/vim-vinegar'       # ...together like oil and vinegar
+Pack 'tpope/vim-eunuch'        # Vim sugar for the UNIX shell commands
+Pack 'tpope/vim-obsession'     # Continuously updated session files
+
+Pack 'tpope/vim-projectionist' # Granular project configuration using `projections`
+Pack 'tpope/vim-flagship'      # Status line and tab line - customizable and extensible
+Pack 'tpope/vim-dispatch'      # Do not be bound by synchronicity.
+Pack 'tpope/vim-tbone'         # Basic tmux support for Vim
+
+Pack 'tpope/vim-apathy'        # Set 'path' option for miscellaneous file types
+Pack 'tpope/vim-classpath'     # Set 'path' from the Java class path 
+Pack 'tpope/vim-jdaddy'        # JSON manipulation and pretty printing
+
+Pack 'tpope/vim-fugitive'      # A Git wrapper so awesome, it should be illegal
+Pack 'tpope/vim-rhubarb'       # GitHub extension for fugitive.vim 
 
 # Additional text objects
 Pack 'kana/vim-textobj-user'   # Create your own text objects
 Pack 'kana/vim-textobj-entire' # Text objects for entire buffer
 
 # Better text editing are...
-Pack 'godlygeek/tabular'          # ...align anything by symbol
+Pack 'godlygeek/tabular', { rev: '84057252a01e96909cd1a9f0b1395f5d9f61be1e' }          # ...align anything by symbol
 Pack 'dhruvasagar/vim-table-mode' # ...neat tables as you type
+
+# Testing frameworks
+Pack 'junegunn/vader.vim'   # Testingg framework for Vimscript
+Pack 'kana/vim-vspec'       # Another testing framework for Vimscript
+
+Pack 'liuchengxu/vim-clap', { do: 'silent! !./install.sh' }
+
+Pack 'embear/vim-localvimrc'
+
+# Colorschemes
+Pack 'c9rgreen/vim-colors-modus'
+
+Pack 'sagi-z/projmakers'
 
 hako.End()
 
 # }}}
 
+# From vim-flagship
+set laststatus=2
+set showtabline=1
+set guioptions-=e
+
+set shellslash
+
+g:clap_disable_run_rooter = v:true
+g:clap_open_preview = 'never'
+g:clap_layout = {
+\ 'relative': 'editor',
+\ 'width': '100%',
+\ 'height': '50%',
+\ 'row': '50%',
+\ 'col': '0%',
+\ }
+g:clap_popup_border = 'nil'
+g:clap_search_box_border_style = 'nil'
+g:clap_popup_move_manager = {"\<C-N>": "\<Down>", "\<C-P>": "\<Up>"}
+
+set termguicolors
+silent! colorscheme modus
+set background=light
+
+&undodir = kiso.PrepareStateDir('undo', true)
+&backupdir = kiso.PrepareStateDir('backup', true)
+&directory = kiso.PrepareStateDir('swp', true)
+&viminfo ..= ',n' .. fnameescape(kiso.GetStateDir() .. '/viminfo')
+
+# vim-clap custom colors {{{
+
+def g:SetupClapModus(): void
+  # Main surfaces
+  hi! link ClapInput Normal
+  hi! link ClapDisplay Normal
+  hi! link ClapPreview Normal
+
+  # Header / top strip
+  silent! hi! link ClapProviderId Title
+  silent! hi! link ClapMatchesCount Comment
+  silent! hi! link ClapPrompt Normal
+
+  # Current entry
+  hi! link ClapCurrentSelection CursorLine
+  hi! link ClapSelected CursorLine
+
+  # Query field highlight: keep it calm
+  hi! link ClapSearchText Identifier
+
+  # Matched characters inside candidates: no green block
+  hi! link ClapMatches Identifier
+  silent! hi! link ClapFuzzyMatches Identifier
+  silent! hi! link ClapFuzzyMatches1 Identifier
+  silent! hi! link ClapFuzzyMatches2 Identifier
+  silent! hi! link ClapFuzzyMatches3 Identifier
+  silent! hi! link ClapFuzzyMatches4 Identifier
+  silent! hi! link ClapFuzzyMatches5 Identifier
+  silent! hi! link ClapFuzzyMatches6 Identifier
+
+  # Misc
+  hi! link ClapIndicator Special
+  hi! link ClapSpinner ModeMsg
+  hi! link ClapNoMatchesFound WarningMsg
+enddef
+
+augroup ClapModusTheme
+  autocmd!
+  autocmd ColorScheme * g:SetupClapModus()
+augroup END
+
+g:SetupClapModus()
+
+# }}}
+
+g:mapleader = ' '
+g:maplocalleader = '\'
+
+nnoremap <Space> <Nop>
+nnoremap <leader>sf :Clap files<CR>
+nnoremap <leader>sb :Clap buffers<CR>
+nnoremap <leader>sc :Clap command<CR>
+nnoremap <localleader>c :MesonCompile<CR>
+
+command! EditVimRC edit $MYVIMRC
+command! EditVimRCLocal execute 'edit ' . $MYVIMRC . "_local"
+if has('gui_running')
+  command! EditGVimRC edit $MYGVIMRC
+  command! EditGVimRCLocal execute 'edit ' . $MYGVIMRC . "_local"
+endif
+command! ReloadRC source $MYVIMRC

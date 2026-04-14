@@ -6,7 +6,7 @@ default_tags = ['vim_saishin']
 source = 'vim/juurai/vimrc'
 target.windows = '~/vimfiles/vimrc'
 target.unix = '~/.config/vim/vimrc'
-tag = 'vim_jurai'
+tag = 'vim_juurai'
 [[link]]
 source = 'vim/juurai/gvimrc'
 target.windows = '~/vimfiles/gvimrc'

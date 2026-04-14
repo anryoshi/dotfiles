@@ -32,6 +32,16 @@ export def DetermineOS(): OS
 enddef
 export var GetOS = Memoize(DetermineOS)
 
+export def DetermineVimDir(): string
+  var os = DetermineOS()
+  if os == OS.Windows
+    return expand('~') .. '/vimfiles'
+  else
+    return expand('~') .. '/.config/vim'
+  endif
+enddef
+export var GetVimDir = Memoize(DetermineVimDir)
+
 export def DetermineStateDir(): string
   var os = DetermineOS()
   if os == OS.Windows
@@ -62,13 +72,24 @@ export def GitClone(url: string, path: string)
 enddef
 
 export def EnsureDir(path: string)
-  if !isdirectory(path)
+  var target = expand(path)
+  if !isdirectory(target)
     try
-      mkdir(path, 'p')
+      mkdir(target, 'p')
     catch
-      throw 'EnsureDir: failed to create directory "' .. path .. '"'
+      throw 'EnsureDir: failed to create directory "' .. target .. '"'
     endtry
   endif
+enddef
+
+export def PrepareStateDir(name: string, unique_storage: bool): string
+   var dir = GetStateDir() .. '/' .. name
+   if unique_storage
+     dir ..= '//'
+   endif
+   dir = expand(dir)
+   EnsureDir(dir)
+   return dir
 enddef
 
 export def CompareAndSetTimestampFile(path: string, delta: number): bool
