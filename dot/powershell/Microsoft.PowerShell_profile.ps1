@@ -73,3 +73,25 @@ function Set-CompilerEnvironment ([Compiler]$compenv = [Compiler]::msvc) {
 }
 
 Invoke-Expression (&scoop-search --hook)
+
+if ($env:TERM_PROGRAM -eq "WezTerm") {
+    # TODO: programmatically derive from pallete
+    Set-PSReadLineOption -Colors @{
+        Default            = $PSStyle.Foreground.FromRgb(0x000000)
+        ContinuationPrompt = $PSStyle.Foreground.FromRgb(0x595959)
+
+        Command            = $PSStyle.Foreground.FromRgb(0x0031A9)
+        Keyword            = $PSStyle.Foreground.FromRgb(0x721045)
+        Parameter          = $PSStyle.Foreground.FromRgb(0x813E00)
+        String             = $PSStyle.Foreground.FromRgb(0x005E00)
+        Variable           = $PSStyle.Foreground.FromRgb(0x00538B)
+        Type               = $PSStyle.Foreground.FromRgb(0x00538B)
+        Number             = $PSStyle.Foreground.FromRgb(0x721045)
+        Member             = $PSStyle.Foreground.FromRgb(0x721045)
+        Operator           = $PSStyle.Foreground.FromRgb(0x000000)
+        Comment            = $PSStyle.Foreground.FromRgb(0x595959)
+        InlinePrediction   = $PSStyle.Foreground.FromRgb(0x595959)
+        Selection          = $PSStyle.Background.FromRgb(0xBCBCBC)
+        Error              = $PSStyle.Foreground.FromRgb(0xA60000)
+    }
+}

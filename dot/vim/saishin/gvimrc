@@ -7,9 +7,9 @@ import autoload "kiso.vim"
 
 # TODO: for some reason GVim supports only fonts that marked as monospaced
 if has("win64") || has("win32") || has("win16")
-  set guifont=Sarasa_Fixed_J:h14
+  set guifont=Sarasa_Fixed_J:h18
 else
-  set guifont=Sarasa\ Fixed\ J\ 14
+  set guifont=Sarasa\ Fixed\ J\ 18
 endif
 
 # Disable all bars and etc.
